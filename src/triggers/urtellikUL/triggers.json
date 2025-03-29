@@ -1,0 +1,17 @@
+[
+  {
+    "name": "dataElement capture",
+    "isFolder": "no",
+    "matchAll": "yes",
+    "patterns": [
+      {
+        "pattern": "<",
+        "type": "startOfLine"
+      },
+      {
+        "pattern": "^<([^>]+)>(.*)</\\1>$",
+        "type": "regex"
+      }
+    ]
+  }
+]
