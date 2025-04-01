@@ -1,6 +1,8 @@
 [
-    {
-        "name": "urtellikUL",
-        "isFolder": "yes"
-    }
+       {
+              "name": "urtellikUL",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "yes"
+       }
 ]
