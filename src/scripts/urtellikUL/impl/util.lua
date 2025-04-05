@@ -1,10 +1,8 @@
-local nsFn = function(nsName, replace)
+local nsFn = function(nsName)
   local path = nsName:split"%."
   local loc = _G
-  for i, elem in ipairs(path) do
-    if not loc[elem]
-      or (replace and i == #path)
-    then
+  for _, elem in ipairs(path) do
+    if not loc[elem] then
       loc[elem] = {}
     end
     loc = loc[elem]
@@ -12,7 +10,7 @@ local nsFn = function(nsName, replace)
   return loc
 end
 
-local ns = nsFn("urtellikUL.impl.util", true)
+local ns = nsFn("urtellikUL.impl.util")
 ns.ns = nsFn
 
 function ns.safeGet(name)
@@ -25,4 +23,24 @@ function ns.safeGet(name)
     loc = loc[elem]
   end
   return loc
+end
+
+function ns.numToPct(num)
+  return string.format("%f%%", 100*num)
+end
+
+function ns.hideAllIn(tbl)
+  for _,v in pairs(tbl) do
+    if type(v) == "table" and v.hide then
+      v:hide()
+    end
+  end
+end
+
+function ns.mvWins(old, new)
+  local old = old or {}
+  for _,v in ipairs(old.windows or {}) do
+    old.windowList[v]:changeContainer(new)
+  end
+  return new
 end

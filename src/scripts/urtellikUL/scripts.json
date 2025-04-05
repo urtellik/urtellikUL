@@ -1,6 +1,6 @@
 [
        {
-              "name": "impl",
+              "name": "gui",
               "isActive": "yes",
               "script": "",
               "isFolder": "yes"

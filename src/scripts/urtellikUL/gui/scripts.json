@@ -1,0 +1,32 @@
+[
+       {
+              "name": "styles",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "no"
+       },
+       {
+              "name": "left_old",
+              "isActive": "no",
+              "script": "",
+              "isFolder": "no"
+       },
+       {
+              "name": "borders",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "no"
+       },
+       {
+              "name": "gauges",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "no"
+       },
+       {
+              "name": "left",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "no"
+       }
+]

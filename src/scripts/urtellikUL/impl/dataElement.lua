@@ -1,5 +1,5 @@
 local ut = urtellikUL.impl.util
-local ns = ut.ns("urtellikUL.impl.dataElement", true)
+local ns = ut.ns("urtellikUL.impl.dataElement")
 local sg = ut.ns("urtellikUL.state.game")
 
 function ns.parseScalar(str)
@@ -41,8 +41,8 @@ function ns.parserCaptor(parser)
     local before = sg[tag]
     local after = parser(data)
     sg[tag] = after
-    raiseEvent("event.urtellikUL.state.game", tag, before, after)
-    raiseEvent("event.urtellikUL.state.game."..tag, before, after)
+    raiseEvent("urtellikUL.state.game", tag, after, before)
+    raiseEvent("urtellikUL.state.game."..tag, after, before)
   end
 end
 
@@ -61,8 +61,8 @@ ns.timerCaptor = function(tag, data)
     after.max = before.max
   end
   sg[tag] = after
-  raiseEvent("event.urtellikUL.state.game", tag, before, after)
-  raiseEvent("event.urtellikUL.state.game."..tag, before, after)
+  raiseEvent("urtellikUL.state.game", tag, after, before)
+  raiseEvent("urtellikUL.state.game."..tag, after, before)
 end
 
 sg.limb = sg.limb or {}
@@ -91,9 +91,9 @@ ns.dataElementCaptors = {
     local afterPart = {status=status, wounds=wounds, bleeding=bleeding}
     sg[tag][part] = afterPart
     local afterWhole = sg[tag]
-    raiseEvent("event.urtellikUL.state.game", tag, beforeWhole, afterWhole)
-    raiseEvent("event.urtellikUL.state.game."..tag, beforeWhole, afterWhole)
-    raiseEvent("event.urtellikUL.state.game."..tag.."."..part, beforePart, afterPart)
+    raiseEvent("urtellikUL.state.game", tag, afterWhole, beforeWhole)
+    raiseEvent("urtellikUL.state.game."..tag, afterWhole, beforeWhole)
+    raiseEvent("urtellikUL.state.game."..tag.."."..part, afterPart, beforePart)
   end,
   settings = ns.tableCaptor,
   name = ns.parserCaptor(
@@ -124,6 +124,6 @@ end
 registerNamedEventHandler(
   "urtellikUL",
   "dataElement.handleDataElement",
-  "event.urtellikUL.dataElement",
+  "urtellikUL.dataElement",
   ns.handleDataElement
 )
