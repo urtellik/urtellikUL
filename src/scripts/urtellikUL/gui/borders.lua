@@ -40,7 +40,7 @@ registerNamedEventHandler(
 function ns.resizeBorders(dims)
   local w, h = dims.w, dims.h
   local top = h * ns.measures.top + st.extraBorderPx
-  local right = w * ns.measures.right + st.extraBorder
+  local right = w * ns.measures.right + st.extraBorderPx
   local bottom = h * ns.measures.bottom + st.extraBorderPx
   local left = w * ns.measures.left + st.extraBorderPx
   local sizes = getBorderSizes()
@@ -75,15 +75,15 @@ ns.left = ut.mvWins(
   }))
 ns.left:setStyleSheet(st.background)
 
--- ns.right = ut.mvWins(
-  -- ns.right,
-    -- Geyser.Label:new({
-    -- name = "urtellikUL.right",
-    -- x = "-"..ns.measures.rightPct, y = 0,
-    -- width = ns.measures.rightPct,
-    -- height = "100%",
-  -- }))
--- ns.right:setStyleSheet(st.background)
+ns.right = ut.mvWins(
+  ns.right,
+    Geyser.Label:new({
+    name = "urtellikUL.right",
+    x = "-"..ns.measures.rightPct, y = 0,
+    width = ns.measures.rightPct,
+    height = "100%",
+  }))
+ns.right:setStyleSheet(st.background)
 
 -- ns.top = ut.mvWins(
   -- ns.top,
