@@ -84,34 +84,34 @@ registerNamedEventHandler(
   end
 )
 
-ns.endurance = Geyser.Gauge:new({
-  name = "urtellikUL.gauges.endurance.gauge",
+ns.stamina = Geyser.Gauge:new({
+  name = "urtellikUL.gauges.stamina.gauge",
   height = "100%",
   width = "100%",
   x=0, y=0,
 }, ns.rightColumn)
-ns.endurance:setStyleSheet(
+ns.stamina:setStyleSheet(
   st.edrFront,
   st.edrBack,
   st.gaugeText
 )
-ns.endurance.text:setFontSize(st.fontSize)
-function ns.updateEndurance(val)
+ns.stamina.text:setFontSize(st.fontSize)
+function ns.updateStamina(val)
   local val = val or {}
   local cur, max = val.cur, val.max
-  ns.endurance:setValue(
+  ns.stamina:setValue(
     cur or 0,
     max or 1,
-    "Endurance: "..(cur or "?").."/"..(max or "?")
+    "Stamina: "..(cur or "?").."/"..(max or "?")
   )
 end
-ns.updateEndurance(ut.safeGet("urtellikUL.state.game.endurance"))
+ns.updateStamina(ut.safeGet("urtellikUL.state.game.stamina"))
 registerNamedEventHandler(
   "urtellikUL",
-  "gui.gauges.endurance",
-  "urtellikUL.state.game.endurance",
+  "gui.gauges.stamina",
+  "urtellikUL.state.game.stamina",
   function(_event, val)
-    ns.updateEndurance(val)
+    ns.updateStamina(val)
   end
 )
 
