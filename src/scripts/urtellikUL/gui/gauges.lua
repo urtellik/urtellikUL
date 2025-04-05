@@ -33,6 +33,7 @@ ns.vitality:setStyleSheet(
   st.vitBack,
   st.gaugeText
 )
+ns.vitality.text:setFontSize(st.fontSize)
 function ns.updateVitality(val)
   local val = val or {}
   local cur, max = val.cur, val.max
@@ -47,8 +48,8 @@ registerNamedEventHandler(
   "urtellikUL",
   "gui.gauges.vitality",
   "urtellikUL.state.game.vitality",
-  function(_event, vit)
-    ns.updateVitality(vit)
+  function(_event, val)
+    ns.updateVitality(val)
   end
 )
 
@@ -63,6 +64,7 @@ ns.essence:setStyleSheet(
   st.essBack,
   st.gaugeText
 )
+ns.essence.text:setFontSize(st.fontSize)
 function ns.updateEssence(val)
   local val = val or {}
   local cur, max = val.cur, val.max
@@ -77,8 +79,8 @@ registerNamedEventHandler(
   "urtellikUL",
   "gui.gauges.essence",
   "urtellikUL.state.game.essence",
-  function(_event, vit)
-    ns.updateEssence(vit)
+  function(_event, val)
+    ns.updateEssence(val)
   end
 )
 
@@ -87,12 +89,13 @@ ns.endurance = Geyser.Gauge:new({
   height = "100%",
   width = "100%",
   x=0, y=0,
-},ns.rightColumn)
+}, ns.rightColumn)
 ns.endurance:setStyleSheet(
   st.edrFront,
   st.edrBack,
   st.gaugeText
 )
+ns.endurance.text:setFontSize(st.fontSize)
 function ns.updateEndurance(val)
   local val = val or {}
   local cur, max = val.cur, val.max
@@ -107,8 +110,8 @@ registerNamedEventHandler(
   "urtellikUL",
   "gui.gauges.endurance",
   "urtellikUL.state.game.endurance",
-  function(_event, vit)
-    ns.updateEndurance(vit)
+  function(_event, val)
+    ns.updateEndurance(val)
   end
 )
 
@@ -123,6 +126,7 @@ ns.willpower:setStyleSheet(
   st.wilBack,
   st.gaugeText
 )
+ns.willpower.text:setFontSize(st.fontSize)
 function ns.updateWillpower(val)
   local val = val or {}
   local cur, max = val.cur, val.max
@@ -137,7 +141,7 @@ registerNamedEventHandler(
   "urtellikUL",
   "gui.gauges.willpower",
   "urtellikUL.state.game.willpower",
-  function(_event, vit)
-    ns.updateWillpower(vit)
+  function(_event, val)
+    ns.updateWillpower(val)
   end
 )

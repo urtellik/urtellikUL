@@ -41,6 +41,7 @@ for _,lc in ipairs({"rt","st","ut","pt","ht"}) do
   local label = ns[lc.."Label"]
   label:setStyleSheet(st.borderedTight)
   label:setFormat("c")
+  label:setFontSize(st.fontSize)
   ns[lc.."Update"] = function(new)
     local new = new or {}
     local cur = new.cur or 0

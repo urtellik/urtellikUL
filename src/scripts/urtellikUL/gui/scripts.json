@@ -6,6 +6,12 @@
               "isFolder": "no"
        },
        {
+              "name": "colors",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "no"
+       },
+       {
               "name": "styles",
               "isActive": "yes",
               "script": "",
