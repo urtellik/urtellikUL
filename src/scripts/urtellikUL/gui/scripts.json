@@ -6,12 +6,6 @@
               "isFolder": "no"
        },
        {
-              "name": "left_old",
-              "isActive": "no",
-              "script": "",
-              "isFolder": "no"
-       },
-       {
               "name": "borders",
               "isActive": "yes",
               "script": "",

@@ -1,6 +1,7 @@
-local nsFn = function(nsName)
+local nsFn = function(a, b)
+  local nsName = b or a
+  local loc = b and a or _G
   local path = nsName:split"%."
-  local loc = _G
   for _, elem in ipairs(path) do
     if not loc[elem] then
       loc[elem] = {}
@@ -10,7 +11,7 @@ local nsFn = function(nsName)
   return loc
 end
 
-local ns = nsFn("urtellikUL.impl.util")
+local ns = nsFn("urtellikUL.util")
 ns.ns = nsFn
 
 function ns.safeGet(name)

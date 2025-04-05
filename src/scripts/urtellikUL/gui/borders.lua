@@ -1,6 +1,7 @@
-local ut = urtellikUL.impl.util
-local ns = ut.ns("urtellikUL.gui.borders")
-local st = ut.ns("urtellikUL.gui.styles")
+local uul = urtellikUL
+local ut = uul.util
+local ns = ut.ns(uul, "gui.borders")
+local st = uul.gui.styles
 
 local numToPct = function(num)
   return string.format("%f%%", 100*num)
@@ -8,9 +9,9 @@ end
 
 local rawMeasures = {
   left = 0.20,
-  top = 0.1,
+  top = 0,
   bottom = 0.1,
-  right = 0.20,
+  right = 0,
 }
 
 ns.measures = {}
@@ -81,25 +82,25 @@ ns.left = ut.mvWins(
   }))
 ns.left:setStyleSheet(st.background)
 
-ns.right = ut.mvWins(
-  ns.right,
-    Geyser.Label:new({
-    name = "urtellikUL.right",
-    x = "-"..ns.measures.rightPct, y = 0,
-    width = ns.measures.rightPct,
-    height = "100%",
-  }))
-ns.right:setStyleSheet(st.background)
+-- ns.right = ut.mvWins(
+  -- ns.right,
+    -- Geyser.Label:new({
+    -- name = "urtellikUL.right",
+    -- x = "-"..ns.measures.rightPct, y = 0,
+    -- width = ns.measures.rightPct,
+    -- height = "100%",
+  -- }))
+-- ns.right:setStyleSheet(st.background)
 
-ns.top = ut.mvWins(
-  ns.top,
-  Geyser.Label:new({
-    name = "urtellikUL.top",
-    x = ns.measures.leftPct, y = 0,
-    width = ns.measures.midHPct,
-    height = ns.measures.topPct,
-  }))
-ns.top:setStyleSheet(st.background)
+-- ns.top = ut.mvWins(
+  -- ns.top,
+  -- Geyser.Label:new({
+    -- name = "urtellikUL.top",
+    -- x = ns.measures.leftPct, y = 0,
+    -- width = ns.measures.midHPct,
+    -- height = ns.measures.topPct,
+  -- }))
+-- ns.top:setStyleSheet(st.background)
 
 ns.bottom = ut.mvWins(
   ns.bottom,

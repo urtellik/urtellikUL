@@ -1,6 +1,7 @@
-local ut = urtellikUL.impl.util
-local ns = ut.ns("urtellikUL.impl.dataElement")
-local sg = ut.ns("urtellikUL.state.game")
+local uul = urtellikUL
+local ut = uul.util
+local ns = ut.ns(uul, "dataCapture.dataTag")
+local sg = ut.ns(uul, "state.game")
 
 function ns.parseScalar(str)
   if str == "" then
@@ -67,7 +68,7 @@ end
 
 sg.limb = sg.limb or {}
 
-ns.dataElementCaptors = {
+ns.dataTagCaptors = {
   essence = ns.curMaxCaptor,
   fame = ns.curMaxCaptor,
   lessons = ns.curMaxCaptor,
@@ -109,7 +110,7 @@ ns.dataElementCaptors = {
   ut = ns.timerCaptor
 }
 setmetatable(
-  ns.dataElementCaptors,
+  ns.dataTagCaptors,
   {
     __index = function(_table, key)
       return ns.scalarCaptor
@@ -117,13 +118,13 @@ setmetatable(
   }
 )
 
-function ns.handleDataElement(_event, tag, data)
-  ns.dataElementCaptors[tag](tag, data)
+function ns.handledataTag(_event, tag, data)
+  ns.dataTagCaptors[tag](tag, data)
 end
 
 registerNamedEventHandler(
   "urtellikUL",
-  "dataElement.handleDataElement",
-  "urtellikUL.dataElement",
-  ns.handleDataElement
+  "dataTag.handledataTag",
+  "urtellikUL.dataTag",
+  ns.handledataTag
 )

@@ -1,7 +1,9 @@
-local ut = urtellikUL.impl.util
-local ns = ut.ns("urtellikUL.gui.gauges")
-local bdrs = ut.ns("urtellikUL.gui.borders")
-local st = ut.ns("urtellikUL.gui.styles")
+local uul = urtellikUL
+local gui = uul.gui
+local ut = uul.util
+local ns = ut.ns(gui, "gauges")
+local bdr = gui.borders
+local st = gui.styles
 
 ns.footer = ut.mvWins(
   ns.footer,
@@ -10,7 +12,7 @@ ns.footer = ut.mvWins(
     x = 0, y = 0,
     width = "100%",
     height = "100%",
-  }, bdrs.bottom))
+  }, bdr.bottom))
 
 ns.leftColumn = Geyser.VBox:new({
   name = "urtellikUL.gauges.leftColumn",
@@ -31,7 +33,6 @@ ns.vitality:setStyleSheet(
   st.vitBack,
   st.gaugeText
 )
--- ns.vitality.front:setStyleSheet(ns.vitFront:getCSS())
 function ns.updateVitality(val)
   local val = val or {}
   local cur, max = val.cur, val.max

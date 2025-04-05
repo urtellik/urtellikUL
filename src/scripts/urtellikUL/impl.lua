@@ -1,1 +1,0 @@
-urtellikUL.impl = urtellikUL.impl or {}
