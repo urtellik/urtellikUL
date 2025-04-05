@@ -1,39 +1,81 @@
-# TemplateProject
+# Urtellik UL Client (UULC)
 
-## TemplateProject by ShrinkingViolet
-
-This is a template project created by muddler. It's meant to give you the basic skeleton to get started.
-It is not a complete project, nor does it provide an example of every type of trigger scenario or keybinding corner case. It would make it even more difficult to clear out to make way for your own items.
-It **will** properly muddle and create an mpackage, however.
-For more detailed information on describing your triggers, scripts, etc in the json files, please see the [muddler wiki](https://github.com/demonnic/muddler/wiki)
-
-This space is where I would normally put the description of my package and what it does/why I made it. But if you have a README format you already like, feel free to ignore all this.
+A Mudlet frontend for Unwritten Legends.
 
 ## Installation
 
-It's a good idea to provide installation instructions. I like to include a command they can copy/paste into the Mudlet commandline. Like
+At the Mudlet command line (same place you input game commands), enter the following:
 
-`lua uninstallPackage("packageName") installPackage("https://somedomain.org/path/to/my/package/packageName.mpackage")`
+`lua uninstallPackage("Urtellik UL") installPackage("https://github.com/urtellik/urtellikUL/raw/refs/heads/main/build/Urtellik%20UL.mpackage")`
 
-## Usage
+Alternatively, you can manually download that file and then install it through the Mudlet GUI.
 
-Brief introduction to the overall usage. Then break it down to specifics
+## GUI features
 
-### Aliases
+* Timer bars for:
+  * Round time
+  * Stun time
+  * Unconscious time
+  * Healing time
+  * Prep time
+* Gauges for:
+  * Vitality
+  * Essence
+  * Stamina
+  * Willpower
 
-* `alias1 <param1>`
-  * description of what the alias does, and what param1 is if it exists
-    * example usage1
-    * optional example usage2, etc
-* `alias 2`
-  * and so on, and so forth
+### Coming soon
 
-### API
+* Clickable compass
+* Limb health indicators
 
-* `functionName(param1, param2)
-  * Then, do the same thing for any Lua API which you want them to be able to use.
-  * This part can be skipped if you have separate API documentation, but keep in mind the README.md file is accessible from the package manage in Mudlet, so this allows you to provide documentation within Mudlet, to a degree.
+### Customization
 
-## Final thoughts, how to contribute, thanks, things like that
+Currently, customization requires editing the script files.
+A future version may support customization by adding your own scripts in a separate package, allowing you to update UULC without losing your changes.
 
-I like to put anything which doesn't fit with the above stuff here, at the end. It keeps the documentation like stuff at the top.
+That said, you can change many things by tweaking just a few dials:
+
+* `urtellikUL.gui.colors` sets all the colors used in the GUI.
+* `urtellikUL.gui.styles` sets most of the styles used in the GUI.
+
+## API features
+
+This project aims to provide a strong foundation for others to build on top of.
+You can disable the GUI entirely if you want, and build your own using the features documented here.
+
+### State tracking
+
+Urtellik UL captures all structured data tags from the game, parses them, and stores their data in `urtellikUL.state.game`.
+It raises various events as it does this:
+
+* `"urtellikUL.dataTag"` raises when the client receives a data tag. Arguments:
+  * tag name
+  * tag contents
+* `"urtellikUL.dataElement.<tag-name>"` also raises when the client receives a data tag. Arguments:
+  * tag contents
+* `"urtellikUL.state.game.<tag-name>"` raises when the client parses a tag and saves its data. Arguments:
+  * new data
+  * previous data
+
+`urtellikUL.state` contains all state tracked by this system.
+
+`urtellikUL.state.game` contains specifically the _game_ state tracked by this system.
+State outside of this could include things like command history or client settings.
+
+### Misc events
+
+* `"urtellikUL.gui.mainWindowResize"` raises when the main window changes size, _not_ including changes to the borders. Arguments:
+  * A table containing `w` (width) and `h` (height) in pixels.
+
+## Contributing
+
+Pull requests are welcome.
+Try to follow a few conventions:
+
+* Don't define any globals outside of `urtellikUL`.
+* Make sure the folder structure matches the table structure.
+* Use `registerNamedEventHandler` for _all_ event registrations.
+* Begin event, handler, and Geyser element names with `urtellikUL`.
+* All triggers (except trivial ones like `arrival.lua`) should raise one or more events with little or no parsing of the data.
+  Use scripts to react to those events and execute more complex logic.
