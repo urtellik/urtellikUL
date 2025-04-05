@@ -5,6 +5,14 @@ local gui = uul.gui
 gui.Color = {}
 local Color = gui.Color
 
+function Color:new(r, g, b, a)
+  local r, g, b, a = Geyser.Color.parse(r, g, b, a)
+  local color = {r=r,g=g,b=b,a=a}
+  setmetatable(color, self)
+  self.__index = self
+  return color
+end
+
 local rBrt, gBrt, bBrt = 0.299, 0.587, 0.114
 
 function Color:__add(a)
@@ -72,14 +80,6 @@ end
 
 function Color.isColor(a)
   return type(a) == "table" and a.r and a.g and a.b
-end  
-
-function Color:new(r, g, b, a)
-  local r, g, b, a = Geyser.Color.parse(r, g, b, a)
-  local color = {r=r,g=g,b=b,a=a}
-  setmetatable(color, self)
-  self.__index = self
-  return color
 end
 
 function Color:getPeak()
@@ -95,51 +95,6 @@ function Color:getBrightness()
   )
 end
 
-function Color:inv()
-  return Color:new(
-    self.r == 0 and 255 or 1/self.r,
-    self.g == 0 and 255 or 1/self.g,
-    self.b == 0 and 255 or 1/self.b,
-    self.a
-  )
-end
-
-local findAdj1 = function(
-  target,
-  fix1, fix1Brt,
-  fix2, fix2Brt,
-  var, varBrt
-)
-  local subRad = 0
-    - (fix1^2 * fix1Brt * varBrt)
-    - (fix2^2 * fix2Brt * varBrt)
-    + (target^2 * varBrt)
-  return math.min(
-    (math.sqrt(subRad) - (var*varBrt)) / varBrt,
-    255-var)
-end
-
-local findAdj2 = function(
-  target,
-  fix, fixBrt,
-  var1, var1Brt,
-  var2, var2Brt
-)
-  local subRad = (2*var1*var1Brt + 2*var2*var2Brt)^2
-    - 4 * (var1Brt+var2Brt)
-      * (fix^2*fixBrt
-        + var1^2*var1Brt
-        + var2^2*var2Brt
-        - target^2)
-  local num = math.sqrt(subRad)
-    - 2*var1*var1Brt
-    - 2*var2*var2Brt
-  return math.min(
-    num / 2 / (var1Brt + var2Brt),
-    255-var1,
-    255-var2)
-end
-
 function Color:clamp()
   local res = Color:new(self)
   res.r = math.min(math.max(res.r, 0), 255)
@@ -148,73 +103,124 @@ function Color:clamp()
   return res
 end
 
+function Color.rgbToHsl(rgb)
+  local hsl = {h=0, s=0, l=0}
+  local r, g, b = rgb.r/255, rgb.g/255, rgb.b/255
+  local min, max = math.min(r, g, b), math.max(r, g, b)
+  local delta = (max - min)
+  hsl.l = (max + min) / 2
+  if delta == 0 then
+    return hsl
+  end
+  if hsl.l <= 0.5 then
+    hsl.s = delta / (max + min)
+  else
+    hsl.s = delta / (2 - max - min)
+  end
+  local hue = 0
+  if r == max then
+    hue = (g-b) / 6 / delta
+  elseif g == max then
+    hue = 1/3 + (b-r) / 6 / delta
+  else
+    hue = 2/3 + (r-g) / 6 / delta
+  end
+  if hue < 0 then
+    hue = hue + 1
+  elseif hue > 1 then
+    hue = hue - 1
+  end
+  hsl.h = hue * 360
+  return hsl
+end
+
+local hueToRgb = function(v1, v2, hue)
+  local hue = hue
+  if hue < 0 then
+    hue = hue + 1
+  elseif hue > 1 then
+    hue = hue - 1
+  end
+  if (6*hue) < 1 then
+    return v1 + (v2-v1) * 6 * hue
+  elseif (2*hue) < 1 then
+    return v2
+  elseif (3*hue) < 2 then
+    return v1 + (v2-v1) * 6 * (2/3 - hue)
+  else
+    return v1
+  end
+end
+
+function Color.hslToRgb(hsl)
+  local rgb = Color:new({r=0,g=0,b=0})
+  local h, s, l = hsl.h, hsl.s, hsl.l
+  if s == 0 then
+    rgb.r = l * 255
+    rgb.g = rgb.r
+    rgb.b = rgb.r
+    return rgb
+  end
+  local hue = h / 360
+  local v1,v2 = nil,nil
+  if l < 0.5 then
+    v2 = l * (1 + s)
+  else
+    v2 = (l + s) - l*s
+  end
+  v1 = 2 * l - v2
+  rgb.r = 255 * hueToRgb(v1, v2, hue+1/3)
+  rgb.g = 255 * hueToRgb(v1, v2, hue)
+  rgb.b = 255 * hueToRgb(v1, v2, hue-1/3)
+  return rgb
+end
+
 function Color:setBrightness(brt)
   local brt = math.min(brt, 255)
+  local brtRnd = ut.round(brt)
   local curBr = self:getBrightness()
-  local res = self * math.min(brt/curBr, 255/self:getPeak())
-  if ut.round(res:getBrightness()) == ut.round(brt) then
+  local res = self
+  if curBr > 0 then
+    res = self * math.min(brt/curBr, 255/self:getPeak())
+  end
+  if ut.round(res:getBrightness()) == brtRnd then
     return res
   end
-  for _ = 1,100 do
+  local hsl = Color.rgbToHsl(res)
+  local lo, mid, hi = 0, 0, nil
+  while true do
+    hsl.l = mid
+    res = Color.hslToRgb(hsl)
     curBr = res:getBrightness()
-    if ut.round(curBr) == ut.round(brt) then
+    if ut.round(curBr) == brtRnd then
       return res
-    end
-    if tostring(curBr) == "nan" then
-      return res
-    end
-    local rnd = {
-      r = ut.round(res.r),
-      g = ut.round(res.g),
-      b = ut.round(res.b),
-    }
-    if rnd.r == 255 then
-      if rnd.g == 255 then
-        res.b = res.b + findAdj1(
-          brt,
-          res.r, rBrt,
-          res.g, gBrt,
-          res.b, bBrt)
-      elseif rnd.b == 255 then
-        res.g = res.g + findAdj1(
-          brt,
-          res.r, rBrt,
-          res.b, bBrt,
-          res.g, gBrt)
+    elseif curBr < brt then
+      if hi == nil then
+        lo = 0
+        mid = 1
+        hi = 1
+      elseif mid == 1 then
+        break
       else
-        local adj = findAdj2(
-          brt,
-          res.r, rBrt,
-          res.g, gBrt,
-          res.b, bBrt)
-        res.g = res.g + adj
-        res.b = res.b + adj
+        lo = mid
+        mid = (hi + lo) / 2
       end
-    elseif rnd.g == 255 then
-      if rnd.b == 255 then
-        res.r = res.r + findAdj1(
-          brt,
-          res.g, gBrt,
-          res.b, bBrt,
-          res.r, rBrt)
+    else --curBr > brt
+      if mid == 0 then
+        break
       else
-        local adj = findAdj2(
-          brt,
-          res.g, gBrt,
-          res.r, rBrt,
-          res.b, bBrt)
-        res.r = res.r + adj
-        res.b = res.b + adj
+        hi = mid
+        mid = (hi + lo) / 2
       end
-    elseif rnd.b == 255 then
-      local adj = findAdj2(
-        brt,
-        res.b, bBrt,
-        res.r, rBrt,
-        res.g, gBrt)
-      res.r = res.r + adj
-      res.g = res.g + adj
     end
   end
-  return res:clamp()
+  return res
+end
+
+function Color:css()
+  return "rgba("
+    ..ut.round(self.r)..","
+    ..ut.round(self.g)..","
+    ..ut.round(self.b)..","
+    ..ut.round(self.a)..")"
 end
