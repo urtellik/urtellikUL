@@ -1,5 +1,11 @@
 [
        {
+              "name": "Color",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "no"
+       },
+       {
               "name": "styles",
               "isActive": "yes",
               "script": "",

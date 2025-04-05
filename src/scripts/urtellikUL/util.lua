@@ -45,3 +45,12 @@ function ns.mvWins(old, new)
   end
   return new
 end
+
+function ns.round(n)
+  int, frac = math.modf(n)
+  if frac >= 0.5 then
+    return int+1
+  else
+    return int
+  end
+end
