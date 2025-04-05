@@ -69,12 +69,14 @@ end
 sg.limb = sg.limb or {}
 
 ns.dataTagCaptors = {
+  vitality = ns.curMaxCaptor,
   essence = ns.curMaxCaptor,
+  endurance = ns.curMaxCaptor,
+  willpower = ns.curMaxCaptor,
+  
   fame = ns.curMaxCaptor,
   lessons = ns.curMaxCaptor,
   stamina = ns.curMaxCaptor,
-  vitality = ns.curMaxCaptor,
-  willpower = ns.curMaxCaptor,
   languages = ns.listCaptor,
   martialarts = ns.listCaptor,
   martialart = ns.parserCaptor(
