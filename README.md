@@ -52,7 +52,7 @@ It raises various events as it does this:
 * `"urtellikUL.dataTag"` raises when the client receives a data tag. Arguments:
   * tag name
   * tag contents
-* `"urtellikUL.dataElement.<tag-name>"` also raises when the client receives a data tag. Arguments:
+* `"urtellikUL.dataTag.<tag-name>"` also raises when the client receives a data tag. Arguments:
   * tag contents
 * `"urtellikUL.state.game.<tag-name>"` raises when the client parses a tag and saves its data. Arguments:
   * new data
