@@ -1,7 +1,6 @@
 local ut = urtellikUL.impl.util
 local ns = ut.ns("urtellikUL.gui.gauges")
 local bdrs = ut.ns("urtellikUL.gui.borders")
-local gui = ut.ns("urtellikUL.gui")
 local st = ut.ns("urtellikUL.gui.styles")
 
 ns.footer = ut.mvWins(
