@@ -5,7 +5,7 @@ local clr = uul.gui.colors
 
 local gss = Geyser.StyleSheet
 
-ns.fontSize = ut.round(getFontSize() * 3/4)
+ns.fontSize = getFontSize() * 4/5
 
 ns.root = gss:new(f[[
 ]])
@@ -63,38 +63,40 @@ ns.gaugeText = gss:new([[
   color: white;
   background-color: rgba(0,0,0,0);
   margin: 0;
+  padding-right: 8%;
+  font-weight: 600;
 ]], ns.spaced)
 
 ns.rtTimerFront = gss:new(f[[
-  background-color: {clr.rt.fg:css()};
+  background-color: {clr.rt.mid:css()};
 ]], ns.bordered)
 ns.rtTimerBack = gss:new([[
   background-color: rgba(0,0,0,0);
 ]], ns.bordered)
 
 ns.stTimerFront = gss:new(f[[
-  background-color: {clr.st.fg:css()};
+  background-color: {clr.st.mid:css()};
 ]], ns.bordered)
 ns.stTimerBack = gss:new([[
   background-color: rgba(0,0,0,0);
 ]], ns.bordered)
 
 ns.utTimerFront = gss:new(f[[
-  background-color: {clr.ut.fg:css()};
+  background-color: {clr.ut.mid:css()};
 ]], ns.bordered)
 ns.utTimerBack = gss:new([[
   background-color: rgba(0,0,0,0);
 ]], ns.bordered)
 
 ns.ptTimerFront = gss:new(f[[
-  background-color: {clr.pt.fg:css()};
+  background-color: {clr.pt.mid:css()};
 ]], ns.bordered)
 ns.ptTimerBack = gss:new([[
   background-color: rgba(0,0,0,0);
 ]], ns.bordered)
 
 ns.htTimerFront = gss:new(f[[
-  background-color: {clr.ht.fg:css()};
+  background-color: {clr.ht.mid:css()};
 ]], ns.bordered)
 ns.htTimerBack = gss:new([[
   background-color: rgba(0,0,0,0);
