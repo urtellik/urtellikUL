@@ -10,10 +10,10 @@ ns.fontSize = getFontSize() * 4/5
 ns.extraBorderPx = 4
 
 ns.borderSizes = {
-  left = 0.20,
+  left = 0.2,
   top = 0,
   bottom = 0.1,
-  right = 0,
+  right = 0.2,
 }
 
 ns.root = gss:new(f[[
@@ -35,6 +35,10 @@ ns.bordered = gss:new([[
   border-width: 1px;
   border-radius: 3px;
 ]], ns.spaced)
+
+ns.textBox = gss:new([[
+  background-color: rgb(0,0,0);
+]], ns.bordered)
 
 ns.borderedTight = gss:new([[
   padding: 0px;

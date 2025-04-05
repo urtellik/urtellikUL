@@ -23,6 +23,7 @@ Alternatively, you can manually download that file and then install it through t
   * Essence
   * Stamina
   * Willpower
+* Chat window
 
 ### Coming soon
 
@@ -67,6 +68,8 @@ State outside of this could include things like command history or client settin
 
 * `"urtellikUL.gui.mainWindowResize"` raises when the main window changes size, _not_ including changes to the borders. Arguments:
   * A table containing `w` (width) and `h` (height) in pixels.
+* `"urtellikUL.oocChannelMessage"` raises when a chat channel message arrives.
+  It has no arguments, but the handler can fetch the raw message from a dedicated buffer, which is also named `"urtellikUL.oocChannelMessage"`.
 
 ## Contributing
 
