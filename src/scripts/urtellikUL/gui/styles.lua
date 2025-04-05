@@ -7,16 +7,25 @@ local gss = Geyser.StyleSheet
 
 ns.fontSize = getFontSize() * 4/5
 
+ns.extraBorderPx = 4
+
+ns.borderSizes = {
+  left = 0.20,
+  top = 0,
+  bottom = 0.1,
+  right = 0,
+}
+
 ns.root = gss:new(f[[
 ]])
-
-ns.background = gss:new(f[[
-  background-color: {clr.bg:css()};
-]], ns.root)
 
 ns.spaced = gss:new([[
   margin: 2%;
   padding: 2%;
+]], ns.root)
+
+ns.background = gss:new(f[[
+  background-color: {clr.bg:css()};
 ]], ns.root)
 
 ns.bordered = gss:new([[

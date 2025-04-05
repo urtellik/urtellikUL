@@ -7,16 +7,9 @@ local numToPct = function(num)
   return string.format("%f%%", 100*num)
 end
 
-local rawMeasures = {
-  left = 0.20,
-  top = 0,
-  bottom = 0.1,
-  right = 0,
-}
-
 ns.measures = {}
 
-for k, v in pairs(rawMeasures) do
+for k, v in pairs(st.borderSizes) do
   ns.measures[k] = v
   ns.measures[k.."Pct"] = numToPct(v)
   ns.measures[k.."InvPct"] = numToPct(1-v)
@@ -46,10 +39,10 @@ registerNamedEventHandler(
 
 function ns.resizeBorders(dims)
   local w, h = dims.w, dims.h
-  local top = h * ns.measures.top
-  local right = w * ns.measures.right
-  local bottom = h * ns.measures.bottom
-  local left = w * ns.measures.left
+  local top = h * ns.measures.top + st.extraBorderPx
+  local right = w * ns.measures.right + st.extraBorder
+  local bottom = h * ns.measures.bottom + st.extraBorderPx
+  local left = w * ns.measures.left + st.extraBorderPx
   local sizes = getBorderSizes()
   if sizes.top ~= top
     or sizes.right ~= right
