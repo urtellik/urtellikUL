@@ -28,7 +28,7 @@ for _,lc in ipairs({"rt","st","ut","pt","ht"}) do
   gauge.text:setFontSize(st.fontSize)
   gauge.text:setFormat("r")
   ns[lc.."Update"] = function(new)
-    local new = new or {}
+    local new = new or {cur=0, max=0}
     local cur = new.cur >= 0 and new.cur or 0
     local max = new.cur == 0 and 1 or new.max or 1
     gauge:setValue(cur, max, uc..": "..cur)
