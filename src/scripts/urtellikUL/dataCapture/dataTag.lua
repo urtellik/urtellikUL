@@ -54,8 +54,11 @@ ns.tableCaptor = ns.parserCaptor(ns.parseTable)
 ns.timerCaptor = function(tag, data)
   local before = sg[tag]
   local after = {cur=ns.parseScalar(data)}
+  if after.cur < 0 then
+    after.cur = 0
+  end
   if before == nil
-    or (before.cur or 0) == 0
+    or (before.cur or 0) <= 0
     or after.cur > (before.max or 0) then
     after.max = after.cur
   else
