@@ -24,10 +24,10 @@ Alternatively, you can manually download that file and then install it through t
   * Stamina
   * Willpower
 * Chat window
+* Clickable compass with available directions highlighted
 
 ### Coming soon
 
-* Clickable compass
 * Limb health indicators
 
 ### Customization
