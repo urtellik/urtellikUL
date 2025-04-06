@@ -13,7 +13,7 @@ ns.borderSizes = {
   left = 0.2,
   top = 0,
   bottom = 0.1,
-  right = 0.2,
+  right = 0.25,
 }
 
 ns.root = gss:new(f[[
