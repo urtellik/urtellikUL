@@ -37,13 +37,22 @@ function ns.parseTable(data)
   return result
 end
 
-function ns.parserCaptor(parser)
+function ns.parserCaptorFn(parser)
   return function(tag, data)
     local before = sg[tag]
     local after = parser(data)
     sg[tag] = after
     raiseEvent("urtellikUL.state.game", tag, after, before)
     raiseEvent("urtellikUL.state.game."..tag, after, before)
+  end
+end
+
+ns.multiCaptorFn = function(...)
+  local captors = {...}
+  return function(tag, data)
+    for _,cap in ipairs(captors) do
+      cap(tag, data)
+    end
   end
 end
 
@@ -71,10 +80,10 @@ ns.clearCaptor = function(targetTag)
   end
 end
 
-ns.curMaxCaptor = ns.parserCaptor(ns.parseCurMax)
-ns.listCaptor = ns.parserCaptor(ns.parseList)
-ns.scalarCaptor = ns.parserCaptor(ns.parseScalar)
-ns.tableCaptor = ns.parserCaptor(ns.parseTable)
+ns.curMaxCaptor = ns.parserCaptorFn(ns.parseCurMax)
+ns.listCaptor = ns.parserCaptorFn(ns.parseList)
+ns.scalarCaptor = ns.parserCaptorFn(ns.parseScalar)
+ns.tableCaptor = ns.parserCaptorFn(ns.parseTable)
 ns.timerCaptor = function(tag, data)
   local before = sg[tag]
   local after = {cur=ns.parseScalar(data)}
@@ -93,15 +102,6 @@ ns.timerCaptor = function(tag, data)
   raiseEvent("urtellikUL.state.game."..tag, after, before)
 end
 
-ns.multiCaptor = function(...)
-  local captors = {...}
-  return function(tag, data)
-    for _,cap in ipairs(captors) do
-      cap(tag, data)
-    end
-  end
-end
-
 sg.limb = sg.limb or {}
 
 ns.dataTagCaptors = {
@@ -111,13 +111,13 @@ ns.dataTagCaptors = {
   willpower = ns.curMaxCaptor,
 
   exit = ns.accumCaptor,
-  room = ns.multiCaptor(ns.scalarCaptor, ns.clearCaptor("exit")),
+  room = ns.multiCaptorFn(ns.scalarCaptor, ns.clearCaptor("exit")),
   
   fame = ns.curMaxCaptor,
   lessons = ns.curMaxCaptor,
   languages = ns.listCaptor,
   martialarts = ns.listCaptor,
-  martialart = ns.parserCaptor(
+  martialart = ns.parserCaptorFn(
     function(data)
       local arr = data:split":"
       local cur = arr[1]
@@ -137,7 +137,7 @@ ns.dataTagCaptors = {
     raiseEvent("urtellikUL.state.game."..tag.."."..part, afterPart, beforePart)
   end,
   settings = ns.tableCaptor,
-  name = ns.parserCaptor(
+  name = ns.parserCaptorFn(
     function(data)
       local first, last = unpack(data:split":")
       return {first=first, last=last}
