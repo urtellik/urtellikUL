@@ -82,3 +82,5 @@ Try to follow a few conventions:
 * Begin event, handler, and Geyser element names with `urtellikUL`.
 * All triggers (except trivial ones like `arrival.lua`) should raise one or more events with little or no parsing of the data.
   Use scripts to react to those events and execute more complex logic.
+* Use number prefixes to ensure scripts are sorted by proper load order.
+  This is a workaround for [a longstanding Muddler issue](https://github.com/demonnic/muddler/issues/14).

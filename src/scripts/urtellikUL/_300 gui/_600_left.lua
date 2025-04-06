@@ -21,9 +21,9 @@ for _,lc in ipairs({"rt","st","ut","pt","ht"}) do
   }, ns.timers)
   local gauge = ns[lc.."Gauge"]
   gauge:setStyleSheet(
-    st[lc.."TimerFront"],
-    st[lc.."TimerBack"],
-    st.gaugeText
+    st[lc.."TimerFrontCss"],
+    st[lc.."TimerBackCss"],
+    st.gaugeTextCss
   )
   gauge.text:setFontSize(st.fontSize)
   gauge.text:setFormat("r")

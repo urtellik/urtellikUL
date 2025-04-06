@@ -16,12 +16,14 @@ ns.borderSizes = {
   right = 0.25,
 }
 
+ns.defaultMargin = 2
+
 ns.root = gss:new(f[[
 ]])
 
-ns.spaced = gss:new([[
-  margin: 2%;
-  padding: 2%;
+ns.spaced = gss:new(f[[
+  margin: {ns.defaultMargin}%;
+  padding: {ns.defaultMargin}%;
 ]], ns.root)
 
 ns.background = gss:new(f[[
@@ -117,6 +119,6 @@ ns.htTimerBack = gss:new([[
 
 for k,v in pairs(ns) do
   if type(v) == "table" and v.getCSS then
-    ns[k] = v:getCSS()
+    ns[k.."Css"] = v:getCSS()
   end
 end

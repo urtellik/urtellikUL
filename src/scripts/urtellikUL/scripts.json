@@ -1,13 +1,13 @@
 [
-       {
-              "name": "_100 util"
-       },
-       {
-              "name": "_200 dataCapture",
-              "isFolder": "yes"
-       },
-       {
-              "name": "_300 gui",
-              "isFolder": "yes"
-       }
+    {
+        "name": "_100 util"
+    },
+    {
+        "name": "_200 dataCapture",
+        "isFolder": "yes"
+    },
+    {
+        "name": "_300 gui",
+        "isFolder": "yes"
+    }
 ]

@@ -29,9 +29,9 @@ ns.vitality = Geyser.Gauge:new({
   x=0, y=0,
 }, ns.leftColumn)
 ns.vitality:setStyleSheet(
-  st.vitFront,
-  st.vitBack,
-  st.gaugeText
+  st.vitFrontCss,
+  st.vitBackCss,
+  st.gaugeTextCss
 )
 ns.vitality.text:setFontSize(st.fontSize)
 function ns.updateVitality(val)
@@ -60,9 +60,9 @@ ns.essence = Geyser.Gauge:new({
   x=0, y=0,
 }, ns.leftColumn)
 ns.essence:setStyleSheet(
-  st.essFront,
-  st.essBack,
-  st.gaugeText
+  st.essFrontCss,
+  st.essBackCss,
+  st.gaugeTextCss
 )
 ns.essence.text:setFontSize(st.fontSize)
 function ns.updateEssence(val)
@@ -91,9 +91,9 @@ ns.stamina = Geyser.Gauge:new({
   x=0, y=0,
 }, ns.rightColumn)
 ns.stamina:setStyleSheet(
-  st.edrFront,
-  st.edrBack,
-  st.gaugeText
+  st.edrFrontCss,
+  st.edrBackCss,
+  st.gaugeTextCss
 )
 ns.stamina.text:setFontSize(st.fontSize)
 function ns.updateStamina(val)
@@ -122,9 +122,9 @@ ns.willpower = Geyser.Gauge:new({
   x=0, y=0,
 },ns.rightColumn)
 ns.willpower:setStyleSheet(
-  st.wilFront,
-  st.wilBack,
-  st.gaugeText
+  st.wilFrontCss,
+  st.wilBackCss,
+  st.gaugeTextCss
 )
 ns.willpower.text:setFontSize(st.fontSize)
 function ns.updateWillpower(val)

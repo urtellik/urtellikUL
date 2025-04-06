@@ -73,7 +73,7 @@ ns.left = ut.mvWins(
     width = ns.measures.leftPct,
     height = "100%"
   }))
-ns.left:setStyleSheet(st.background)
+ns.left:setStyleSheet(st.backgroundCss)
 
 ns.right = ut.mvWins(
   ns.right,
@@ -83,7 +83,7 @@ ns.right = ut.mvWins(
     width = ns.measures.rightPct,
     height = "100%",
   }))
-ns.right:setStyleSheet(st.background)
+ns.right:setStyleSheet(st.backgroundCss)
 
 -- ns.top = ut.mvWins(
   -- ns.top,
@@ -103,4 +103,4 @@ ns.bottom = ut.mvWins(
     width = ns.measures.midHPct,
     height = ns.measures.bottomPct,
   }))
-ns.bottom:setStyleSheet(st.background)
+ns.bottom:setStyleSheet(st.backgroundCss)
