@@ -1,5 +1,17 @@
 [
        {
+              "name": "util",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "no"
+       },
+       {
+              "name": "dataCapture",
+              "isActive": "yes",
+              "script": "",
+              "isFolder": "yes"
+       },
+       {
               "name": "gui",
               "isActive": "yes",
               "script": "",
