@@ -1,20 +1,35 @@
 [
        {
-              "name": "util",
-              "isActive": "yes",
-              "script": "",
-              "isFolder": "no"
+              "name": "_ns"
        },
        {
-              "name": "dataCapture",
-              "isActive": "yes",
-              "script": "",
-              "isFolder": "yes"
+              "name": "util"
        },
        {
-              "name": "gui",
-              "isActive": "yes",
-              "script": "",
-              "isFolder": "yes"
+              "name": "dataCapture/dataTag"
+       },
+       {
+              "name": "gui"
+       },
+       {
+              "name": "gui/Color"
+       },
+       {
+              "name": "gui/colors"
+       },
+       {
+              "name": "gui/styles"
+       },
+       {
+              "name": "gui/borders"
+       },
+       {
+              "name": "gui/gauges"
+       },
+       {
+              "name": "gui/left"
+       },
+       {
+              "name": "gui/right"
        }
 ]

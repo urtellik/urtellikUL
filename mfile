@@ -6,5 +6,5 @@
        "author": "Urtellik",
        "icon": "",
        "dependencies": "",
-       "outputFile": false
+       "outputFile": true
 }

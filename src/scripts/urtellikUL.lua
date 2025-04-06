@@ -1,1 +1,0 @@
-urtellikUL = urtellikUL or {}
