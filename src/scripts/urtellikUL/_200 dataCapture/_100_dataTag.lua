@@ -47,6 +47,30 @@ function ns.parserCaptor(parser)
   end
 end
 
+-- For debugging
+function ns.printCaptor(...)
+  display({...})
+end
+
+ns.accumCaptor = function(tag, data)
+  local before = sg[tag]
+  local after = before and table.deepcopy(before) or {}
+  table.insert(after, ns.parseScalar(data))
+  sg[tag] = after
+  raiseEvent("urtellikUL.state.game", tag, after, before)
+  raiseEvent("urtellikUL.state.game."..tag, after, before)
+end
+
+ns.clearCaptor = function(targetTag)
+  return function()
+    local before = sg[targetTag]
+    local after = nil
+    sg[targetTag] = after
+    raiseEvent("urtellikUL.state.game", targetTag, after, before)
+    raiseEvent("urtellikUL.state.game."..targetTag, after, before)
+  end
+end
+
 ns.curMaxCaptor = ns.parserCaptor(ns.parseCurMax)
 ns.listCaptor = ns.parserCaptor(ns.parseList)
 ns.scalarCaptor = ns.parserCaptor(ns.parseScalar)
@@ -69,6 +93,15 @@ ns.timerCaptor = function(tag, data)
   raiseEvent("urtellikUL.state.game."..tag, after, before)
 end
 
+ns.multiCaptor = function(...)
+  local captors = {...}
+  return function(tag, data)
+    for _,cap in ipairs(captors) do
+      cap(tag, data)
+    end
+  end
+end
+
 sg.limb = sg.limb or {}
 
 ns.dataTagCaptors = {
@@ -76,6 +109,9 @@ ns.dataTagCaptors = {
   essence = ns.curMaxCaptor,
   stamina = ns.curMaxCaptor,
   willpower = ns.curMaxCaptor,
+
+  exit = ns.accumCaptor,
+  room = ns.multiCaptor(ns.scalarCaptor, ns.clearCaptor("exit")),
   
   fame = ns.curMaxCaptor,
   lessons = ns.curMaxCaptor,
