@@ -29,6 +29,7 @@ ns.chat = Geyser.MiniConsole:new({
 }, ns.chatBox)
 local r,g,b = getBgColor()
 ns.chat:setColor(r,g,b)
+ns.chat:setFontSize(getFontSize())
 
 local buf = "urtellikUL.oocChannelMessage"
 registerNamedEventHandler(
