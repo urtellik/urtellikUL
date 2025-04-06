@@ -1,35 +1,13 @@
 [
        {
-              "name": "_ns"
+              "name": "_100 util"
        },
        {
-              "name": "util"
+              "name": "_200 dataCapture",
+              "isFolder": "yes"
        },
        {
-              "name": "dataCapture/dataTag"
-       },
-       {
-              "name": "gui"
-       },
-       {
-              "name": "gui/Color"
-       },
-       {
-              "name": "gui/colors"
-       },
-       {
-              "name": "gui/styles"
-       },
-       {
-              "name": "gui/borders"
-       },
-       {
-              "name": "gui/gauges"
-       },
-       {
-              "name": "gui/left"
-       },
-       {
-              "name": "gui/right"
+              "name": "_300 gui",
+              "isFolder": "yes"
        }
 ]
