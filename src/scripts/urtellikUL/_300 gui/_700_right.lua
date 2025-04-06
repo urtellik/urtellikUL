@@ -43,7 +43,7 @@ registerNamedEventHandler(
 local mw, mh = getMainWindowSize()
 
 ns.compass = {
-  dirs = {"nw","n","ne","w","out","e","sw","s","se","up","down"},
+  dirs = {"northwest","north","northeast","west","out","east","southwest","south","southeast","up","down"},
   ratio = mw / mh
 }
 
@@ -81,40 +81,40 @@ ns.compass.row4 = Geyser.VBox:new({
   name = "compass.row4",
 },ns.compass.box)
 
-ns.compass.nw = Geyser.Label:new({
-  name = "compass.nw",
+ns.compass.northwest = Geyser.Label:new({
+  name = "compass.northwest",
 },ns.compass.row1)
 
-ns.compass.w = Geyser.Label:new({
-  name = "compass.w",
+ns.compass.west = Geyser.Label:new({
+  name = "compass.west",
 },ns.compass.row1)
 
-ns.compass.sw = Geyser.Label:new({
-  name = "compass.sw",
+ns.compass.southwest = Geyser.Label:new({
+  name = "compass.southwest",
 },ns.compass.row1)
 
-ns.compass.n = Geyser.Label:new({
-  name = "compass.n",
+ns.compass.north = Geyser.Label:new({
+  name = "compass.north",
 },ns.compass.row2)
   
 ns.compass.out = Geyser.Label:new({
   name = "compass.out",
 },ns.compass.row2)
 
-ns.compass.s = Geyser.Label:new({
-  name = "compass.s",
+ns.compass.south = Geyser.Label:new({
+  name = "compass.south",
 },ns.compass.row2)
 
-ns.compass.ne = Geyser.Label:new({
-  name = "compass.ne",
+ns.compass.northeast = Geyser.Label:new({
+  name = "compass.northeast",
 },ns.compass.row3)
 
-ns.compass.e = Geyser.Label:new({
-  name = "compass.e",
+ns.compass.east = Geyser.Label:new({
+  name = "compass.east",
 },ns.compass.row3)
 
-ns.compass.se = Geyser.Label:new({
-  name = "compass.se",
+ns.compass.southeast = Geyser.Label:new({
+  name = "compass.southeast",
 },ns.compass.row3)
 
 ns.compass.spacer1 = Geyser.Container:new({
@@ -141,18 +141,50 @@ ns.compass.spacer3 = Geyser.Container:new({
 }, ns.compass.row4)
 
 function ns.compass.click(name)
-  print(name)
   send(name)
 end
 
+local csses = {}
+
 for k,v in pairs(ns.compass.dirs) do
-  local css = Geyser.StyleSheet:new(f[[
+  csses[v] = {}
+  csses[v].inactive = Geyser.StyleSheet:new(f[[
     border-image: url("{getMudletHomeDir()}/Urtellik UL/compass/{v}.png");
     margin: {st.defaultMargin*1.5}%;
-  ]], st.spaced)
-  ns.compass[v]:setStyleSheet(css:getCSS())
+  ]], st.spaced):getCSS()
+  csses[v].active = Geyser.StyleSheet:new(f[[
+    border-image: url("{getMudletHomeDir()}/Urtellik UL/compass/{v}-active.png");
+    margin: {st.defaultMargin*1.5}%;
+  ]], st.spaced):getCSS()
+  ns.compass[v]:setStyleSheet(csses[v].inactive)
   ns.compass[v]:setClickCallback(ns.compass.click,v)
 end
+
+function ns.compass.setStyle(name, style)
+  ns.compass[name]:setStyleSheet(csses[name][style])
+end
+
+function ns.compass.setActive(dirs)
+  for _,v in ipairs(ns.compass.dirs) do
+    ns.compass.setStyle(v, "inactive")
+  end
+  for _,v in ipairs(dirs or {}) do
+    if ns.compass[v] then
+      ns.compass.setStyle(v, "active")
+    end
+  end
+end
+
+registerNamedEventHandler(
+  "urtellikUL",
+  "gui.right.highlightExits",
+  "urtellikUL.state.game.exit",
+  function(_event, exits)
+    ns.compass.setActive(exits)
+  end
+)
+
+ns.compass.setActive(ut.safeGet("urtellikUL.state.game.exit"))
 
 function ns.compass.resize()
   ns.compass.back:resize(
