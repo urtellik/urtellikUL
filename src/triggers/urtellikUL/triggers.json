@@ -47,9 +47,9 @@
               "name": "OOC channels",
               "isActive": "yes",
               "isFolder": "no",
-              "multiline": "no",
+              "multiline": "yes",
               "multilineDelta": "0",
-              "matchall": "no",
+              "matchall": "yes",
               "filter": "no",
               "fireLength": "0",
               "highlight": "no",
@@ -57,12 +57,12 @@
               "highlightBG": "#ffff00",
               "patterns": [
                      {
-                            "pattern": "[gamehelp] ",
+                            "pattern": "[",
                             "type": "startOfLine"
                      },
                      {
-                            "pattern": "[chat] ",
-                            "type": "startOfLine"
+                            "pattern": "^\\[(gamehelp|chat|system)\\] ([^:]+): (.*)$",
+                            "type": "regex"
                      }
               ],
               "script": ""
