@@ -2,6 +2,11 @@ local uul = urtellikUL
 local ut = uul.util
 local ns = ut.ns(uul, "dataCapture.dataTag")
 local sg = ut.ns(uul, "state.game")
+local loginator = require("urtellikUL.mdk.loginator")
+local log = loginator:new({
+  name = "urtellikUL.dataCapture.dataTag",
+  level = "info"
+})
 
 function ns.parseScalar(str)
   if str == "" then
@@ -20,10 +25,11 @@ function ns.parseCurMax(data)
   return {cur=ns.parseScalar(cur), max=ns.parseScalar(max)}
 end
 
-function ns.parseList(data)
+function ns.parseList(data, elemParser)
+  elemParser = elemParser or ns.parseScalar
   local arr = data:split":"
   for i, v in ipairs(arr) do
-    arr[i] = ns.parseScalar(v)
+    arr[i] = elemParser(v)
   end
   return arr
 end
@@ -84,6 +90,8 @@ ns.curMaxCaptor = ns.parserCaptorFn(ns.parseCurMax)
 ns.listCaptor = ns.parserCaptorFn(ns.parseList)
 ns.scalarCaptor = ns.parserCaptorFn(ns.parseScalar)
 ns.tableCaptor = ns.parserCaptorFn(ns.parseTable)
+ns.stringCaptor = ns.parserCaptorFn(function(x) return x; end)
+ns.numCaptor = ns.parserCaptorFn(tonumber)
 ns.timerCaptor = function(tag, data)
   local before = sg[tag]
   local after = {cur=ns.parseScalar(data)}
@@ -153,6 +161,7 @@ setmetatable(
   ns.dataTagCaptors,
   {
     __index = function(_table, key)
+      log:warn("Using default parser for tag "..key)
       return ns.scalarCaptor
     end
   }
