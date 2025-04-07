@@ -132,46 +132,6 @@ ns.dataTagCaptors = {
   stamina = ns.curMaxCaptor,
   willpower = ns.curMaxCaptor,
 
-  experience = ns.numCaptor,
-
-  pretitle = ns.stringCaptor,
-  posttitle = ns.stringCaptor,
-  truename = ns.stringCaptor,
-  race = ns.stringCaptor,
-  subrace = ns.stringCaptor,
-  gender = ns.stringCaptor,
-  age = ns.numCaptor,
-  profession = ns.stringCaptor,
-  specialization = ns.stringCaptor,
-  deity = ns.stringCaptor,
-  patronmoon = ns.stringCaptor,
-  dominanthand = ns.stringCaptor,
-  position = ns.stringCaptor,
-  stance = ns.stringCaptor,
-  righthand = ns.stringCaptor,
-  lefthand = ns.stringCaptor,
-  level = ns.numCaptor,
-  experiencetolevel = ns.numCaptor,
-  skillpoints = ns.numCaptor,
-  arcana = ns.numCaptor,
-  language = ns.stringCaptor,
-  spells = ns.stringListCaptor,
-
-  exit = ns.accumCaptor,
-  room = ns.multiCaptorFn(ns.stringCaptor, ns.clearCaptor("exit")),
-  
-  fame = ns.curMaxCaptor,
-  lessons = ns.curMaxCaptor,
-  languages = ns.stringListCaptor,
-  martialarts = ns.stringListCaptor,
-  martialart = ns.parserCaptorFn(
-    function(data)
-      local arr = data:split":"
-      local cur = arr[1]
-      table.remove(arr, 1)
-      return {cur=cur, moves=arr}
-    end
-  ),
   limb = function(tag, data)
     local beforeWhole = sg[tag]
     local part, status, wounds, bleeding = unpack(data:split":")
@@ -183,18 +143,70 @@ ns.dataTagCaptors = {
     raiseEvent("urtellikUL.state.game."..tag, afterWhole, beforeWhole)
     raiseEvent("urtellikUL.state.game."..tag.."."..part, afterPart, beforePart)
   end,
-  settings = ns.tableCaptor,
+
+  ht = ns.timerCaptor,
+  pt = ns.timerCaptor,
+  rt = ns.timerCaptor,
+  st = ns.timerCaptor,
+  ut = ns.timerCaptor,
+
+  level = ns.numCaptor,
+  experience = ns.numCaptor,
+  experiencetolevel = ns.numCaptor,
+  skillpoints = ns.numCaptor,
+  
+  profession = ns.stringCaptor,
+  specialization = ns.stringCaptor,
+  
+  -- wtf is this?
+  arcana = ns.numCaptor,
+
+  pretitle = ns.stringCaptor,
+  posttitle = ns.stringCaptor,
+  truename = ns.stringCaptor,
   name = ns.parserCaptorFn(
     function(data)
       local first, last = unpack(data:split":")
       return {first=first, last=last}
     end
   ),
-  ht = ns.timerCaptor,
-  pt = ns.timerCaptor,
-  rt = ns.timerCaptor,
-  st = ns.timerCaptor,
-  ut = ns.timerCaptor
+
+  race = ns.stringCaptor,
+  subrace = ns.stringCaptor,
+  gender = ns.stringCaptor,
+  age = ns.numCaptor,
+  deity = ns.stringCaptor,
+  patronmoon = ns.stringCaptor,
+
+  dominanthand = ns.stringCaptor,
+  position = ns.stringCaptor,
+  stance = ns.stringCaptor,
+  righthand = ns.stringCaptor,
+  lefthand = ns.stringCaptor,
+
+  language = ns.stringCaptor,
+  languages = ns.stringListCaptor,
+
+  spells = ns.stringListCaptor,
+
+  exit = ns.accumCaptor,
+  room = ns.multiCaptorFn(ns.stringCaptor, ns.clearCaptor("exit")),
+  
+  lessons = ns.curMaxCaptor,
+
+  martialarts = ns.stringListCaptor,
+  martialart = ns.parserCaptorFn(
+    function(data)
+      local arr = data:split":"
+      local cur = arr[1]
+      table.remove(arr, 1)
+      return {cur=cur, moves=arr}
+    end
+  ),
+  
+  fame = ns.curMaxCaptor,
+  
+  settings = ns.tableCaptor,
 }
 setmetatable(
   ns.dataTagCaptors,
