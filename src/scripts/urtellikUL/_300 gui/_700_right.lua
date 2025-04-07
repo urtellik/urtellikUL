@@ -55,11 +55,6 @@ ns.compass.back = Geyser.Label:new({
   height = "25%",
 },brd.right)
 
--- ns.compass.back:setStyleSheet([[
---   background-color: QRadialGradient(cx:.3,cy:1,radius:1,stop:0 rgb(0,0,50),stop:.5 rgb(0,0,100),stop:1 rgb(0,0,255));
---   border-radius: ]]..tostring(ns.compass.back:get_width()/2-14)..[[px;
---   margin: 10px;
--- ]])
 ns.compass.back:setStyleSheet(st.borderedCss)
 
 ns.compass.box = Geyser.HBox:new({
