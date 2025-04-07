@@ -144,11 +144,11 @@ local csses = {}
 for k,v in pairs(ns.compass.dirs) do
   csses[v] = {}
   csses[v].inactive = Geyser.StyleSheet:new(f[[
-    border-image: url("{getMudletHomeDir()}/Urtellik UL/compass/{v}.png");
+    border-image: url("{getMudletHomeDir()}/urtellikUL/compass/{v}.png");
     margin: {st.defaultMargin*1.5}%;
   ]], st.spaced):getCSS()
   csses[v].active = Geyser.StyleSheet:new(f[[
-    border-image: url("{getMudletHomeDir()}/Urtellik UL/compass/{v}-active.png");
+    border-image: url("{getMudletHomeDir()}/urtellikUL/compass/{v}-active.png");
     margin: {st.defaultMargin*1.5}%;
   ]], st.spaced):getCSS()
   ns.compass[v]:setStyleSheet(csses[v].inactive)
