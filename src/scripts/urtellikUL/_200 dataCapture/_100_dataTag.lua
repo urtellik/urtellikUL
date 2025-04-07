@@ -22,7 +22,7 @@ end
 
 function ns.parseCurMax(data)
   local cur, max = unpack(data:split":")
-  return {cur=ns.parseScalar(cur), max=ns.parseScalar(max)}
+  return {cur=tonumber(cur), max=tonumber(max)}
 end
 
 function ns.parseList(data, elemParser)
@@ -32,6 +32,12 @@ function ns.parseList(data, elemParser)
     arr[i] = elemParser(v)
   end
   return arr
+end
+
+function ns.listParserFn(elemParser)
+  return function(data)
+    return ns.parseList(data, elemParser)
+  end
 end
 
 function ns.parseTable(data)
@@ -86,15 +92,23 @@ ns.clearCaptor = function(targetTag)
   end
 end
 
+ns.parseString = function(data)
+  if data == "" then
+    return nil
+  else
+    return data
+  end
+end
+
 ns.curMaxCaptor = ns.parserCaptorFn(ns.parseCurMax)
-ns.listCaptor = ns.parserCaptorFn(ns.parseList)
+ns.stringListCaptor = ns.parserCaptorFn(ns.listParserFn(ns.parseString))
 ns.scalarCaptor = ns.parserCaptorFn(ns.parseScalar)
 ns.tableCaptor = ns.parserCaptorFn(ns.parseTable)
-ns.stringCaptor = ns.parserCaptorFn(function(x) return x; end)
+ns.stringCaptor = ns.parserCaptorFn(ns.parseString)
 ns.numCaptor = ns.parserCaptorFn(tonumber)
 ns.timerCaptor = function(tag, data)
   local before = sg[tag]
-  local after = {cur=ns.parseScalar(data)}
+  local after = {cur=tonumber(data)}
   if after.cur < 0 then
     after.cur = 0
   end
@@ -118,13 +132,38 @@ ns.dataTagCaptors = {
   stamina = ns.curMaxCaptor,
   willpower = ns.curMaxCaptor,
 
+  experience = ns.numCaptor,
+
+  pretitle = ns.stringCaptor,
+  posttitle = ns.stringCaptor,
+  truename = ns.stringCaptor,
+  race = ns.stringCaptor,
+  subrace = ns.stringCaptor,
+  gender = ns.stringCaptor,
+  age = ns.numCaptor,
+  profession = ns.stringCaptor,
+  specialization = ns.stringCaptor,
+  deity = ns.stringCaptor,
+  patronmoon = ns.stringCaptor,
+  dominanthand = ns.stringCaptor,
+  position = ns.stringCaptor,
+  stance = ns.stringCaptor,
+  righthand = ns.stringCaptor,
+  lefthand = ns.stringCaptor,
+  level = ns.numCaptor,
+  experiencetolevel = ns.numCaptor,
+  skillpoints = ns.numCaptor,
+  arcana = ns.numCaptor,
+  language = ns.stringCaptor,
+  spells = ns.stringListCaptor,
+
   exit = ns.accumCaptor,
-  room = ns.multiCaptorFn(ns.scalarCaptor, ns.clearCaptor("exit")),
+  room = ns.multiCaptorFn(ns.stringCaptor, ns.clearCaptor("exit")),
   
   fame = ns.curMaxCaptor,
   lessons = ns.curMaxCaptor,
-  languages = ns.listCaptor,
-  martialarts = ns.listCaptor,
+  languages = ns.stringListCaptor,
+  martialarts = ns.stringListCaptor,
   martialart = ns.parserCaptorFn(
     function(data)
       local arr = data:split":"
