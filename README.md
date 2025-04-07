@@ -83,7 +83,7 @@ Try to follow a few conventions:
 * Don't define any globals outside of `urtellikUL`.
 * Make sure the folder structure matches the table structure.
 * Use `registerNamedEventHandler` for _all_ event registrations.
-* Begin event, handler, and Geyser element names with `urtellikUL`.
+* Begin all name strings with `urtellikUL`.
 * All triggers (except trivial ones like `arrival.lua`) should raise one or more events with little or no parsing of the data.
   Use scripts to react to those events and execute more complex logic.
 * Use number prefixes to ensure scripts are sorted by proper load order.
