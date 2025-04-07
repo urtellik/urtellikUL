@@ -69,7 +69,11 @@ State outside of this could include things like command history or client settin
 * `"urtellikUL.gui.mainWindowResize"` raises when the main window changes size, _not_ including changes to the borders. Arguments:
   * A table containing `w` (width) and `h` (height) in pixels.
 * `"urtellikUL.oocChannelMessage"` raises when a chat channel message arrives.
-  It has no arguments, but the handler can fetch the raw message from a dedicated buffer, which is also named `"urtellikUL.oocChannelMessage"`.
+  The handler can fetch the raw message (including colors) from a dedicated buffer, which is also named `"urtellikUL.oocChannelMessage"`. Arguments (none of which include color):
+  * The full matched message line.
+  * The channel name.
+  * The sender name.
+  * The message.
 
 ## Contributing
 
