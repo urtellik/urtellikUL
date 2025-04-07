@@ -1,10 +1,10 @@
 {
-       "package": "Urtellik UL",
-       "title": "Urtellik's UL client",
-       "description": "",
-       "version": "0.1.0",
-       "author": "Urtellik",
-       "icon": "",
-       "dependencies": "",
-       "outputFile": true
+    "package": "Urtellik UL",
+    "title": "Urtellik's UL client",
+    "description": "",
+    "version": "0.1.0",
+    "author": "Urtellik",
+    "icon": "",
+    "dependencies": "",
+    "outputFile": true
 }

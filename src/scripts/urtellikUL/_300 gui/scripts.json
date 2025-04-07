@@ -1,23 +1,23 @@
 [
-       {
-              "name": "_100 Color"
-       },
-       {
-              "name": "_200 colors"
-       },
-       {
-              "name": "_300 styles"
-       },
-       {
-              "name": "_400 borders"
-       },
-       {
-              "name": "_500 gauges"
-       },
-       {
-              "name": "_600 left"
-       },
-       {
-              "name": "_700 right"
-       }
+    {
+        "name": "_100 Color"
+    },
+    {
+        "name": "_200 colors"
+    },
+    {
+        "name": "_300 styles"
+    },
+    {
+        "name": "_400 borders"
+    },
+    {
+        "name": "_500 gauges"
+    },
+    {
+        "name": "_600 left"
+    },
+    {
+        "name": "_700 right"
+    }
 ]

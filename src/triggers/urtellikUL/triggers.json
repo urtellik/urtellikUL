@@ -1,46 +1,46 @@
 [
-       {
-              "name": "dataTag",
-              "multiline": "yes",
-              "multilineDelta": "0",
-              "matchall": "yes",
-              "patterns": [
-                     {
-                            "pattern": "\u003c",
-                            "type": "startOfLine"
-                     },
-                     {
-                            "pattern": "^\u003c([^\u003e]+)\u003e(.*)\u003c/\\1\u003e$",
-                            "type": "regex"
-                     }
-              ]
-       },
-       {
-              "name": "arrival",
-              "multiline": "no",
-              "multilineDelta": "0",
-              "matchall": "no",
-              "patterns": [
-                     {
-                            "pattern": "You arrive.",
-                            "type": "exactMatch"
-                     }
-              ]
-       },
-       {
-              "name": "OOC channels",
-              "multiline": "yes",
-              "multilineDelta": "0",
-              "matchall": "yes",
-              "patterns": [
-                     {
-                            "pattern": "[",
-                            "type": "startOfLine"
-                     },
-                     {
-                            "pattern": "^\\[(gamehelp|chat|system)\\] ([^:]+): (.*)$",
-                            "type": "regex"
-                     }
-              ]
-       }
+    {
+        "name": "dataTag",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "matchall": "yes",
+        "patterns": [
+            {
+                "pattern": "\u003c",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "^\u003c([^\u003e]+)\u003e(.*)\u003c/\\1\u003e$",
+                "type": "regex"
+            }
+        ]
+    },
+    {
+        "name": "arrival",
+        "multiline": "no",
+        "multilineDelta": "0",
+        "matchall": "no",
+        "patterns": [
+            {
+                "pattern": "You arrive.",
+                "type": "exactMatch"
+            }
+        ]
+    },
+    {
+        "name": "OOC channels",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "matchall": "yes",
+        "patterns": [
+            {
+                "pattern": "[",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "^\\[(gamehelp|chat|system)\\] ([^:]+): (.*)$",
+                "type": "regex"
+            }
+        ]
+    }
 ]
