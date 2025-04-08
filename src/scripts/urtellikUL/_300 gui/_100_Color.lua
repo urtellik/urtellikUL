@@ -1,9 +1,5 @@
-local uul = urtellikUL
-local ut = uul.util
-local gui = uul.gui
-
-gui.Color = {}
-local Color = gui.Color
+local ut = urtellikUL.util
+local Color = ut.ns("urtellikUL.gui.Color")
 
 function Color:new(r, g, b, a)
   local r, g, b, a = Geyser.Color.parse(r, g, b, a)

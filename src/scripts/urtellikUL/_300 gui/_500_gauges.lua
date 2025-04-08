@@ -1,9 +1,7 @@
-local uul = urtellikUL
-local gui = uul.gui
-local ut = uul.util
-local ns = ut.ns(gui, "gauges")
-local bdr = gui.borders
-local st = gui.styles
+local ut = urtellikUL.util
+local bdr = urtellikUL.gui.borders
+local st = urtellikUL.gui.styles
+local ns = ut.ns("urtellikUL.gui.gauges")
 
 ns.footer = ut.mvWins(
   ns.footer,

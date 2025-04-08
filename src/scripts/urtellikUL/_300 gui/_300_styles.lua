@@ -1,7 +1,6 @@
-local uul = urtellikUL
-local ut = uul.util
-local ns = ut.ns(uul, "gui.styles")
-local clr = uul.gui.colors
+local ut = urtellikUL.util
+local clr = urtellikUL.gui.colors
+local ns = ut.ns("urtellikUL.gui.styles")
 
 local gss = Geyser.StyleSheet
 

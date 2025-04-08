@@ -1,9 +1,7 @@
-local uul = urtellikUL
-local ut = uul.util
-local gui = uul.gui
-local ns = ut.ns(gui, "left")
-local brd = gui.borders
-local st = gui.styles
+local ut = urtellikUL.util
+local brd = urtellikUL.gui.borders
+local st = urtellikUL.gui.styles
+local ns = ut.ns("urtellikUL.gui.left")
 
 ns.timers = Geyser.VBox:new({
   name = "urtellikUL.timers",

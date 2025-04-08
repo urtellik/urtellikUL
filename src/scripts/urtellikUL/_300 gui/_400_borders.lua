@@ -1,7 +1,6 @@
-local uul = urtellikUL
-local ut = uul.util
-local ns = ut.ns(uul, "gui.borders")
-local st = uul.gui.styles
+local ut = urtellikUL.util
+local st = urtellikUL.gui.styles
+local ns = ut.ns("urtellikUL.gui.borders")
 
 local numToPct = function(num)
   return string.format("%f%%", 100*num)

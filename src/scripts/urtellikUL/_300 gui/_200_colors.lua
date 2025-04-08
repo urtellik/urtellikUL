@@ -1,7 +1,6 @@
-local uul = urtellikUL
-local ut = uul.util
-local ns = ut.ns(uul, "gui.colors")
-local Color = uul.gui.Color
+local ut = urtellikUL.util
+local Color = urtellikUL.gui.Color
+local ns = ut.ns("urtellikUL.gui.colors")
 
 ns.fgBrt = 128
 ns.bgBrt = 10

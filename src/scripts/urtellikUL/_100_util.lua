@@ -2,7 +2,7 @@ urtellikUL.util = urtellikUL.util or {}
 local ns = urtellikUL.util
 local baseLogger = urtellikUL.baseLogger
 
-local nsLogger = function(prefix)
+local nsLogger = function(name)
   local prefix = "("..name..") "
   return setmetatable({
     log = function(self, msg, level)
