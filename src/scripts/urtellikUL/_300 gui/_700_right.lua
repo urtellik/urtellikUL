@@ -3,7 +3,6 @@ local brd = urtellikUL.gui.borders
 local st = urtellikUL.gui.styles
 local ns = ut.ns("urtellikUL.gui.right")
 
-local r,g,b = getBgColor()
 ns.chatBox = Geyser.Label:new({
   name = "urtellikUL.chatBox",
   x = "0%", y = "0%",
@@ -23,7 +22,8 @@ ns.chat = Geyser.MiniConsole:new({
   scrollBar = true,
 }, ns.chatBox)
 local r,g,b = getBgColor()
-ns.chat:setColor(r,g,b)
+-- I have NO idea why these are sometimes nil
+ns.chat:setColor(r or 0, g or 0, b or 0)
 ns.chat:setFontSize(getFontSize())
 
 local buf = "urtellikUL.oocChannelMessage"
