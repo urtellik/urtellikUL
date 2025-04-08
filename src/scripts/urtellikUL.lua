@@ -1,8 +1,8 @@
 urtellikUL = urtellikUL or {}
-
+local ns = urtellikUL
 local loginator = require("urtellikUL.mdk.loginator")
-local log = loginator:new({
+ns.baseLogger = loginator:new({
   name = "urtellikUL",
   level = "info"
 })
-log:info("UULC version @VERSION@")
+ns.baseLogger:info("UULC version @VERSION@")

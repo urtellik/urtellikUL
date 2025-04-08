@@ -1,11 +1,15 @@
 urtellikUL.util = urtellikUL.util or {}
 local ns = urtellikUL.util
+local baseLogger = urtellikUL.baseLogger
 
-local loginator = require("urtellikUL.mdk.loginator")
-local baseLogger = loginator:new({
-  name = "urtellikUL",
-  level = "info"
-})
+local nsLogger = function(prefix)
+  local prefix = "("..name..") "
+  return setmetatable({
+    log = function(self, msg, level)
+      return baseLogger:log(prefix..msg, level)
+    end
+  }, {__index=baseLogger})
+end
 
 function ns.safeGetInit(name)
   local path = name:split"%."
@@ -32,13 +36,7 @@ function ns.safeGet(name)
 end
 
 function ns.ns(name)
-  local prefix = "("..name..") "
-  local result = {}
-  return ns.safeGet(name), setmetatable({
-    log = function(self, msg, level)
-      return baseLogger:log(prefix..msg, level)
-    end
-  }, {__index=baseLogger})
+  return ns.safeGetInit(name), nsLogger(name)
 end
 
 function ns.numToPct(num)
