@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get git commit hash
+        id: git-hash
+        run: echo "hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      - name: Update version in mfile
+        uses: mikefarah/yq@v4
+        with:
+          cmd: yq -o=json -i '.version = "${{steps.git-hash.outputs.hash}}"' 'mfile'
+      - name: Muddle
+        uses: demonnic/build-with-muddler@v1.4
+      - name: Upload MPackage
+        uses: actions/upload-artifact@v4
+        with:
+          name: mpackage
+          path: build/tmp/
