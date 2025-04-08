@@ -27,5 +27,5 @@ jobs:
       - name: Upload MPackage
         uses: actions/upload-artifact@v4
         with:
-          name: mpackage
+          name: urtellikUL
           path: build/tmp/
