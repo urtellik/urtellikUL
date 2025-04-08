@@ -1,7 +1,15 @@
-local nsFn = function(a, b)
-  local nsName = b or a
-  local loc = b and a or _G
-  local path = nsName:split"%."
+urtellikUL.util = urtellikUL.util or {}
+local ns = urtellikUL.util
+
+local loginator = require("urtellikUL.mdk.loginator")
+local baseLogger = loginator:new({
+  name = "urtellikUL",
+  level = "info"
+})
+
+function ns.safeGetInit(name)
+  local path = name:split"%."
+  local loc = _G
   for _, elem in ipairs(path) do
     if not loc[elem] then
       loc[elem] = {}
@@ -10,9 +18,6 @@ local nsFn = function(a, b)
   end
   return loc
 end
-
-local ns = nsFn("urtellikUL.util")
-ns.ns = nsFn
 
 function ns.safeGet(name)
   local path = name:split"%."
@@ -24,6 +29,16 @@ function ns.safeGet(name)
     loc = loc[elem]
   end
   return loc
+end
+
+function ns.ns(name)
+  local prefix = "("..name..") "
+  local result = {}
+  return ns.safeGet(name), setmetatable({
+    log = function(self, msg, level)
+      return baseLogger:log(prefix..msg, level)
+    end
+  }, {__index=baseLogger})
 end
 
 function ns.numToPct(num)

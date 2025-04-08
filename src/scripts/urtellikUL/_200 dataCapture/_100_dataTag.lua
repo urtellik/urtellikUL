@@ -1,23 +1,12 @@
-local uul = urtellikUL
-local ut = uul.util
-local ns = ut.ns(uul, "dataCapture.dataTag")
-local sg = ut.ns(uul, "state.game")
-local loginator = require("urtellikUL.mdk.loginator")
-local log = loginator:new({
-  name = "urtellikUL.dataCapture.dataTag",
-  level = "info"
-})
+local ut = urtellikUL.util
+local ns, log = ut.ns("urtellikUL.dataCapture.dataTag")
+local sg = ut.safeGetInit("urtellikUL.state.game")
 
 function ns.parseScalar(str)
   if str == "" then
     return nil
   end
-  local num = tonumber(str)
-  if num then
-    return num
-  else
-    return str
-  end
+  return tonumber(str) or str
 end
 
 function ns.parseCurMax(data)
@@ -205,7 +194,7 @@ ns.dataTagCaptors = {
   ),
   
   fame = ns.curMaxCaptor,
-  
+
   settings = ns.tableCaptor,
 }
 setmetatable(
