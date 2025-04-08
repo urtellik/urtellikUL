@@ -1,3 +1,2 @@
-build/*
-!build/*.mpackage
+build/
 .output
