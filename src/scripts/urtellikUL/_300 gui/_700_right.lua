@@ -60,15 +60,19 @@ ns.compass.box = Geyser.HBox:new({
 
 ns.compass.col1 = Geyser.VBox:new({
   name = "urtellikUL.compass.col1",
+  h_policy = Geyser.Fixed,
 },ns.compass.box)
 ns.compass.col2 = Geyser.VBox:new({
   name = "urtellikUL.compass.col2",
+  h_policy = Geyser.Fixed,
 },ns.compass.box)
 ns.compass.col3 = Geyser.VBox:new({
   name = "urtellikUL.compass.col3",
+  h_policy = Geyser.Fixed,
 },ns.compass.box)
 ns.compass.col4 = Geyser.VBox:new({
   name = "urtellikUL.compass.col4",
+  h_policy = Geyser.Fixed,
 },ns.compass.box)
 
 function ns.compass.click(name)
@@ -151,9 +155,14 @@ registerNamedEventHandler(
 ns.compass.setActive(ut.safeGet("urtellikUL.state.game.exit"))
 
 function ns.compass.resize()
+  local arrowHeight = ns.compass.dirs.north.label:get_height()
+  for _,col in ipairs({ns.compass.col1, ns.compass.col2, ns.compass.col3, ns.compass.col4}) do
+    col:resize(arrowHeight, nil)
+  end
+  local backHeight = ns.compass.back:get_height()
   ns.compass.back:resize(
-    math.min(ns.compass.back:get_height()*4/3, brd.right:get_width()),
-    ns.compass.back.height
+    backHeight*4/3,
+    nil
   )
 end
 
