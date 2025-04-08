@@ -125,7 +125,11 @@ ns.dataTagCaptors = {
     local beforeWhole = sg[tag]
     local part, status, wounds, bleeding = unpack(data:split":")
     local beforePart = beforeWhole[part]
-    local afterPart = {status=status, wounds=wounds, bleeding=bleeding}
+    local afterPart = {
+      status = status,
+      wounds = tonumber(string.split(wounds, " ")[2]),
+      bleeding = string.split(bleeding, " ")[2]
+    }
     sg[tag][part] = afterPart
     local afterWhole = sg[tag]
     raiseEvent("urtellikUL.state.game", tag, afterWhole, beforeWhole)
