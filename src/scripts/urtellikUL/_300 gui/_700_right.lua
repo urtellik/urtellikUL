@@ -40,13 +40,10 @@ registerNamedEventHandler(
 
 local mw, mh = getMainWindowSize()
 
-ns.compass = {
-  dirs = {"northwest","north","northeast","west","out","east","southwest","south","southeast","up","down"},
-  ratio = mw / mh
-}
+ns.compass = {}
 
 ns.compass.back = Geyser.Label:new({
-  name = "compass.back",
+  name = "urtellikUL.compass.back",
   x = 0,
   y = "75%",
   width = "25%",
@@ -56,114 +53,88 @@ ns.compass.back = Geyser.Label:new({
 ns.compass.back:setStyleSheet(st.borderedCss)
 
 ns.compass.box = Geyser.HBox:new({
-  name = "compass.box",
+  name = "urtellikUL.compass.box",
   x = pos, y = pos,
   width = size, height = size,
 }, ns.compass.back)
 
-ns.compass.row1 = Geyser.VBox:new({
-  name = "compass.row1",
+ns.compass.col1 = Geyser.VBox:new({
+  name = "urtellikUL.compass.col1",
 },ns.compass.box)
-ns.compass.row2 = Geyser.VBox:new({
-  name = "compass.row2",
+ns.compass.col2 = Geyser.VBox:new({
+  name = "urtellikUL.compass.col2",
 },ns.compass.box)
-ns.compass.row3 = Geyser.VBox:new({
-  name = "compass.row3",
+ns.compass.col3 = Geyser.VBox:new({
+  name = "urtellikUL.compass.col3",
 },ns.compass.box)
-ns.compass.row4 = Geyser.VBox:new({
-  name = "compass.row4",
+ns.compass.col4 = Geyser.VBox:new({
+  name = "urtellikUL.compass.col4",
 },ns.compass.box)
-
-ns.compass.northwest = Geyser.Label:new({
-  name = "compass.northwest",
-},ns.compass.row1)
-
-ns.compass.west = Geyser.Label:new({
-  name = "compass.west",
-},ns.compass.row1)
-
-ns.compass.southwest = Geyser.Label:new({
-  name = "compass.southwest",
-},ns.compass.row1)
-
-ns.compass.north = Geyser.Label:new({
-  name = "compass.north",
-},ns.compass.row2)
-  
-ns.compass.out = Geyser.Label:new({
-  name = "compass.out",
-},ns.compass.row2)
-
-ns.compass.south = Geyser.Label:new({
-  name = "compass.south",
-},ns.compass.row2)
-
-ns.compass.northeast = Geyser.Label:new({
-  name = "compass.northeast",
-},ns.compass.row3)
-
-ns.compass.east = Geyser.Label:new({
-  name = "compass.east",
-},ns.compass.row3)
-
-ns.compass.southeast = Geyser.Label:new({
-  name = "compass.southeast",
-},ns.compass.row3)
-
-ns.compass.spacer1 = Geyser.Container:new({
-  name = "compass.spacer1",
-  v_stretch_factor = 1/3
-}, ns.compass.row4)
-
-ns.compass.up = Geyser.Label:new({
-  name = "compass.up",
-}, ns.compass.row4)
-
-ns.compass.spacer2 = Geyser.Container:new({
-  name = "compass.spacer2",
-  v_stretch_factor = 1/3
-}, ns.compass.row4)
-
-ns.compass.down = Geyser.Label:new({
-  name = "compass.down",
-}, ns.compass.row4)
-
-ns.compass.spacer3 = Geyser.Container:new({
-  name = "compass.spacer3",
-  v_stretch_factor = 1/3
-}, ns.compass.row4)
 
 function ns.compass.click(name)
   send(name)
 end
 
-local csses = {}
-
-for k,v in pairs(ns.compass.dirs) do
-  csses[v] = {}
-  csses[v].inactive = Geyser.StyleSheet:new(f[[
-    border-image: url("{getMudletHomeDir()}/urtellikUL/compass/{v}.png");
+ns.compass.dirs = {}
+local mkdir = function(name, parent)
+  ns.compass.dirs[name] = {}
+  local dir = ns.compass.dirs[name]
+  dir.label = Geyser.Label:new({
+    name = "urtellikUL.compass."..name,
+  }, parent)
+  
+  dir.inactive = Geyser.StyleSheet:new(f[[
+    border-image: url("{getMudletHomeDir()}/urtellikUL/compass/{name}.png");
     margin: {st.defaultMargin*1.5}%;
   ]], st.spaced):getCSS()
-  csses[v].active = Geyser.StyleSheet:new(f[[
-    border-image: url("{getMudletHomeDir()}/urtellikUL/compass/{v}-active.png");
+
+  dir.active = Geyser.StyleSheet:new(f[[
+    border-image: url("{getMudletHomeDir()}/urtellikUL/compass/{name}-active.png");
     margin: {st.defaultMargin*1.5}%;
   ]], st.spaced):getCSS()
-  ns.compass[v]:setStyleSheet(csses[v].inactive)
-  ns.compass[v]:setClickCallback(ns.compass.click,v)
+  
+  dir.label:setStyleSheet(dir.inactive)
+  dir.label:setClickCallback(ns.compass.click, name)
 end
 
-function ns.compass.setStyle(name, style)
-  ns.compass[name]:setStyleSheet(csses[name][style])
-end
+mkdir("northwest", ns.compass.col1)
+mkdir("west", ns.compass.col1)
+mkdir("southwest", ns.compass.col1)
+
+mkdir("north", ns.compass.col2)
+mkdir("out", ns.compass.col2)
+mkdir("south", ns.compass.col2)
+
+mkdir("northeast", ns.compass.col3)
+mkdir("east", ns.compass.col3)
+mkdir("southeast", ns.compass.col3)
+
+ns.compass.spacer1 = Geyser.Label:new({
+  name = "urtellikUL.compass.spacer1",
+  v_stretch_factor = 1/3
+}, ns.compass.col4)
+ns.compass.spacer1:setStyleSheet(st.spacedCss)
+mkdir("up", ns.compass.col4)
+ns.compass.spacer2 = Geyser.Label:new({
+  name = "urtellikUL.compass.spacer2",
+  v_stretch_factor = 1/3
+}, ns.compass.col4)
+ns.compass.spacer2:setStyleSheet(st.spacedCss)
+mkdir("down", ns.compass.col4)
+ns.compass.spacer3 = Geyser.Label:new({
+  name = "urtellikUL.compass.spacer3",
+  v_stretch_factor = 1/3
+}, ns.compass.col4)
+ns.compass.spacer3:setStyleSheet(st.spacedCss)
 
 function ns.compass.setActive(dirs)
-  for _,v in ipairs(ns.compass.dirs) do
-    ns.compass.setStyle(v, "inactive")
+  for _,dir in pairs(ns.compass.dirs) do
+    dir.label:setStyleSheet(dir.inactive)
   end
   for _,v in ipairs(dirs or {}) do
-    if ns.compass[v] then
-      ns.compass.setStyle(v, "active")
+    local dir = ns.compass.dirs[v]
+    if dir then
+      dir.label:setStyleSheet(dir.active)
     end
   end
 end

@@ -18,6 +18,7 @@ ns.borderSizes = {
 ns.defaultMargin = 2
 
 ns.root = gss:new(f[[
+  background-color: rgba(0,0,0,0);
 ]])
 
 ns.spaced = gss:new(f[[
@@ -30,7 +31,6 @@ ns.background = gss:new(f[[
 ]], ns.root)
 
 ns.bordered = gss:new([[
-  background-color: rgba(0,0,0,0);
   border-style: solid;
   border-color: rgb(100,100,100);
   border-width: 1px;
