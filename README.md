@@ -7,7 +7,7 @@ A Mudlet frontend for Unwritten Legends.
 At the Mudlet command line (same place you input game commands), enter the following:
 
 ```
-lua uninstallPackage("Urtellik UL") uninstallPackage("urtellikUL") installPackage("https://github.com/urtellik/urtellikUL/raw/refs/heads/main/build/urtellikUL.mpackage")
+lua uninstallPackage("Urtellik UL") uninstallPackage("urtellikUL") installPackage("https://nightly.link/urtellik/urtellikUL/workflows/ci/main/urtellikUL.zip")
 ```
 
 Alternatively, you can manually download that file and then install it through the Mudlet GUI.
