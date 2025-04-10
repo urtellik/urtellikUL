@@ -1,6 +1,6 @@
 local ut = urtellikUL.util
 local clr = urtellikUL.gui.colors
-local ns = ut.ns("urtellikUL.gui.styles")
+local ns, log = ut.ns("urtellikUL.gui.styles")
 
 local gss = Geyser.StyleSheet
 
@@ -24,6 +24,13 @@ ns.root = gss:new(f[[
 ns.spaced = gss:new(f[[
   margin: {ns.defaultMargin}%;
   padding: {ns.defaultMargin}%;
+]], ns.root)
+
+ns.spacedLR = gss:new(f[[
+  margin-left: {ns.defaultMargin}%;
+  margin-right: {ns.defaultMargin}%;
+  padding-left: {ns.defaultMargin}%;
+  padding-right: {ns.defaultMargin}%;
 ]], ns.root)
 
 ns.background = gss:new(f[[
@@ -116,8 +123,11 @@ ns.htTimerBack = gss:new([[
   background-color: rgba(0,0,0,0);
 ]], ns.bordered)
 
-for k,v in pairs(ns) do
+for k,v in spairs(ns) do
   if type(v) == "table" and v.getCSS then
+    log:debug("Generating CSS for "..k)
     ns[k.."Css"] = v:getCSS()
+  else
+    log:debug("Not generating CSS for "..k)
   end
 end

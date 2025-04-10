@@ -133,7 +133,7 @@ ns.dataTagCaptors = {
     sg[tag][part] = afterPart
     local afterWhole = sg[tag]
     raiseEvent("urtellikUL.state.game", tag, afterWhole, beforeWhole)
-    raiseEvent("urtellikUL.state.game."..tag, afterWhole, beforeWhole)
+    raiseEvent("urtellikUL.state.game."..tag, afterWhole, beforeWhole, part, afterPart, beforePart)
     raiseEvent("urtellikUL.state.game."..tag.."."..part, afterPart, beforePart)
   end,
 
