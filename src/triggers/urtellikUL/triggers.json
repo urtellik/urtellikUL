@@ -38,7 +38,7 @@
                 "type": "startOfLine"
             },
             {
-                "pattern": "^\\[(gamehelp|chat|system)\\] ([^:]+): (.*)$",
+                "pattern": "^\\[(gamehelp|chat|system|tell|reply)\\] ([^:]+): (.*)$",
                 "type": "regex"
             }
         ]
