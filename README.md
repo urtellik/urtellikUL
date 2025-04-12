@@ -28,10 +28,6 @@ Alternatively, you can manually download that file and then install it through t
 * Chat window
 * Clickable compass with available directions highlighted
 
-### Coming soon
-
-* Limb health indicators
-
 ### Customization
 
 Currently, customization requires editing the script files.
@@ -46,6 +42,13 @@ That said, you can change many things by tweaking just a few dials:
 
 This project aims to provide a strong foundation for others to build on top of.
 You can disable the GUI entirely if you want, and build your own using the features documented here.
+
+## Coming soon
+
+* Limb health indicators
+* Logging improvements
+  * Configurable file location
+  * Plaintext instead of HTML
 
 ### State tracking
 
