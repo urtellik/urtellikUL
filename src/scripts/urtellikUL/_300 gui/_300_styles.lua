@@ -88,6 +88,13 @@ ns.gaugeText = gss:new([[
   font-weight: 600;
 ]], ns.spaced)
 
+ns.gaugeFront = gss:new(f[[
+  background-color: {clr.neutral.mid:css()};
+]], ns.bordered)
+ns.gaugeBack = gss:new([[
+  background-color: rgba(0,0,0,0);
+]], ns.bordered)
+
 ns.rtTimerFront = gss:new(f[[
   background-color: {clr.rt.mid:css()};
 ]], ns.bordered)
@@ -122,6 +129,15 @@ ns.htTimerFront = gss:new(f[[
 ns.htTimerBack = gss:new([[
   background-color: rgba(0,0,0,0);
 ]], ns.bordered)
+
+ns.maimed = gss:new([[
+  color: red;
+]], ns.root)
+
+ns.mutilated = gss:new([[
+  color: black;
+  background-color: red;
+]])
 
 for k,v in spairs(ns) do
   if type(v) == "table" and v.getCSS then

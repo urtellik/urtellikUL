@@ -4,7 +4,7 @@ local ns = ut.ns("urtellikUL.gui.colors")
 
 ns.fgBrt = 128
 ns.bgBrt = 10
-ns.midBrt = 100
+ns.midBrt = 90
 
 ns.bg = Color:new("black"):setBrightness(ns.bgBrt)
 
@@ -19,6 +19,8 @@ ns.st = {raw = Color:new(255, 128, desat)}
 ns.ut = {raw = Color:new(255, desat, desat)}
 ns.pt = {raw = Color:new(desat, 255, 255)}
 ns.ht = {raw = Color:new(desat, 255, desat)}
+
+ns.neutral = {raw = Color:new(0,0,0)}
 
 for _,v in pairs(ns) do
   if type(v) == "table" and v.raw then
