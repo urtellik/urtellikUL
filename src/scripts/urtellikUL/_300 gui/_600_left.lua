@@ -70,40 +70,51 @@ for k,v in pairs(ns.limbs or {}) do
   ut.hideAllIn(v)
 end
 ns.limbs = {}
-for k,v in spairs(urtellikUL.state.game.limb) do
-  ns.limbs[k] = ns.limbs[k] or {}
-  ut.hideAllIn(ns.limbs[k])
-  local l = ns.limbs[k]
-  l.row = Geyser.HBox:new({
-    name = "urtellikUL.limbRow."..k,
-  }, ns.healthBox)
-  l.name = Geyser.Label:new({
-    name = "urtellikUL.limbName."..k,
-    message = k
-  }, l.row)
-  l.name:setStyleSheet(st.spacedLRCss)
-  l.status = Geyser.Label:new({
-    name = "urtellikUL.limbStatus."..k,
-    message = v.status
-  }, l.row)
-  l.status:setStyleSheet(st.spacedLRCss)
-  l.bleeding = Geyser.Label:new({
-    name = "urtellikUL.limbBleeding."..k,
-    message = v.bleeding
-  }, l.row)
-  l.bleeding:setStyleSheet(st.spacedLRCss)
-  l.wounds = Geyser.Label:new({
-    name = "urtellikUL.limbWounds."..k,
-    message = v.wounds
-  }, l.row)
-  l.wounds:setStyleSheet(st.spacedLRCss)
-end
 
 function ns.update(limb, data)
   local l = ns.limbs[limb]
+  if not l then
+    l = {}
+    l.row = Geyser.HBox:new({
+      name = "urtellikUL.limbRow."..limb,
+    }, ns.healthBox)
+    l.name = Geyser.Label:new({
+      name = "urtellikUL.limbName."..limb,
+      message = limb
+    }, l.row)
+    l.name:setStyleSheet(st.spacedLRCss)
+    l.status = Geyser.Label:new({
+      name = "urtellikUL.limbStatus."..limb,
+    }, l.row)
+    l.status:setStyleSheet(st.spacedLRCss)
+    l.bleeding = Geyser.Label:new({
+      name = "urtellikUL.limbBleeding."..limb,
+    }, l.row)
+    l.bleeding:setStyleSheet(st.spacedLRCss)
+    l.wounds = Geyser.Gauge:new({
+      name = "urtellikUL.limbWounds."..limb,
+    }, l.row)
+    l.wounds:setStyleSheet(
+      st.gaugeFrontCss,
+      st.gaugeBackCss,
+      st.gaugeTextCss
+    )
+    ns.limbs[limb] = l
+  end
   l.status:echo(data.status)
+  if data.status == "maimed" then
+    -- l.status:setStyleSheet(st.maimedCss)
+    l.status:setFgColor("red")
+    l.status:setColor(0,0,0,0)
+  elseif data.status == "mutilated" then
+    l.status:setFgColor("white")
+    l.status:setColor("red")
+  else
+    l.status:setFgColor("white")
+    l.status:setColor(0,0,0,0)
+  end
   l.bleeding:echo(data.bleeding)
-  l.wounds:echo(data.wounds)
+  l.wounds:setValue(data.wounds, 10, data.wounds)
 end
 
 registerNamedEventHandler(
@@ -114,3 +125,7 @@ registerNamedEventHandler(
     ns.update(limb, data)
   end
 )
+
+for k,v in spairs(urtellikUL.state.game.limb) do
+  ns.update(k, v)
+end
