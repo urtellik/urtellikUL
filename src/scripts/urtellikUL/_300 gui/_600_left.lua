@@ -73,6 +73,10 @@ ns.limbs = {}
 
 function ns.update(limb, data)
   local l = ns.limbs[limb]
+  if l and not data then
+    ut.hideAllIn(l)
+    return
+  end
   if not l then
     l = {}
     l.row = Geyser.HBox:new({
@@ -122,7 +126,9 @@ registerNamedEventHandler(
   "gui.left.limbTable",
   "urtellikUL.state.game.limb",
   function(_, _afterWhole, _beforeWhole, limb, data)
-    ns.update(limb, data)
+    if limb then
+      ns.update(limb, data)
+    end
   end
 )
 
