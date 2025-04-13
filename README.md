@@ -43,12 +43,17 @@ That said, you can change many things by tweaking just a few dials:
 This project aims to provide a strong foundation for others to build on top of.
 You can disable the GUI entirely if you want, and build your own using the features documented here.
 
-## Coming soon
+## Roadmap
 
 * Limb health indicators
 * Logging improvements
   * Configurable file location
+    * If possible, just respect Mudlet's native config for this
   * Plaintext instead of HTML
+* Nonstandard exits (doors, steps, etc.) in compass box
+* In-client notification of available update
+
+<!-- TODO: Document how to find logs -->
 
 ### State tracking
 
