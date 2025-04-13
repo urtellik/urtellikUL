@@ -6,7 +6,7 @@ local aggWounds = function(limbs)
   local woundedLimbs = {}
   local woundCount = 0
   local bleedingLimbs = {}
-  for limb,data in pairs(limbs) do
+  for limb,data in pairs(limbs or {}) do
     if data.wounds > 0 then
       table.insert(woundedLimbs, limb)
       woundCount = woundCount + data.wounds

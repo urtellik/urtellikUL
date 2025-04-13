@@ -2,6 +2,7 @@ local ut = urtellikUL.util
 local brd = urtellikUL.gui.borders
 local st = urtellikUL.gui.styles
 local cmp = urtellikUL.gui.components
+local SortBox = require("urtellikUL.mdk.SortBox")
 local ns, log = ut.ns("urtellikUL.gui.left")
 
 ns.timers = Geyser.VBox:new({
@@ -45,17 +46,15 @@ for _,lc in ipairs({"rt","st","ut","pt","ht"}) do
 end
 
 ns.healthBox =
-  cmp.bordered(Geyser.VBox:new({
+  cmp.bordered(SortBox:new({
     name = "urtellikUL.healthBox",
     x = "0%", y = "35%",
     width = "100%",
     height = "40%",
+    timerSort = false,
+    sortFunction = "name",
+    autoSort = true
   }), brd.left)
-
--- ns.limbs = Geyser.VBox:new({
---   name = "urtellikUL.limbs",
--- }, ns.healthBox)
--- ns.limbs:setStyleSheet(st.spacedCss)
 
 registerNamedEventHandler(
   "urtellikUL",
@@ -125,7 +124,14 @@ registerNamedEventHandler(
   "urtellikUL",
   "gui.left.limbTable",
   "urtellikUL.state.game.limb",
-  function(_, _afterWhole, _beforeWhole, limb, data)
+  function(_, afterWhole, _beforeWhole, limb, data)
+    if not afterWhole then
+      for k,v in pairs(ns.limbs or {}) do
+        ut.hideAllIn(v)
+        ns.healthBox:remove(v.row)
+      end
+      ns.limbs = {}
+    end
     if limb then
       ns.update(limb, data)
     end

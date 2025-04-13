@@ -113,8 +113,6 @@ ns.timerCaptor = function(tag, data)
   raiseEvent("urtellikUL.state.game."..tag, after, before)
 end
 
-sg.limb = sg.limb or {}
-
 ns.dataTagCaptors = {
   vitality = ns.curMaxCaptor,
   essence = ns.curMaxCaptor,
@@ -122,6 +120,7 @@ ns.dataTagCaptors = {
   willpower = ns.curMaxCaptor,
 
   limb = function(tag, data)
+    sg.limb = sg.limb or {}
     local beforeWhole = sg[tag]
     local part, status, wounds, bleeding = unpack(data:split":")
     local beforePart = beforeWhole[part]

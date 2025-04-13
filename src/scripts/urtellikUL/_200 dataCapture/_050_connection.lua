@@ -8,7 +8,7 @@ registerNamedEventHandler(
   "sysDisconnectionEvent",
   function()
     local old = sg.limb
-    sg.limb = {}
-    raiseEvent("urtellikUL.state.game.limb", {}, old)
+    sg.limb = nil
+    raiseEvent("urtellikUL.state.game.limb", nil, old)
   end
 )
